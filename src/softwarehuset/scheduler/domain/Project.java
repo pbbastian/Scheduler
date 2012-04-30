@@ -1,4 +1,4 @@
-package scheduler.domain;
+package softwarehuset.scheduler.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;

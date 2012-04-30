@@ -3,8 +3,8 @@ package scheduler.application.tests;
 import static org.junit.Assert.*;
 
 import org.junit.*;
-import scheduler.domain.*;
-import scheduler.application.*;
+import softwarehuset.scheduler.application.*;
+import softwarehuset.scheduler.domain.*;
 
 public class ProjectAdministration {
 	Scheduler scheduler;

@@ -1,9 +1,9 @@
-package scheduler.application;
+package softwarehuset.scheduler.application;
 
 import java.util.UUID;
 
-import scheduler.domain.Developer;
-import scheduler.domain.Project;
+import softwarehuset.scheduler.domain.Developer;
+import softwarehuset.scheduler.domain.Project;
 
 public class Session {
 	private Developer developer;

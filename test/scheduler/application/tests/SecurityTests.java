@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import org.junit.*;
 
-import scheduler.application.*;
-import scheduler.domain.*;
+import softwarehuset.scheduler.application.*;
+import softwarehuset.scheduler.domain.*;
 
 public class SecurityTests {
 	Scheduler scheduler;

@@ -1,7 +1,8 @@
-package scheduler.application;
+package softwarehuset.scheduler.application;
 
 import java.util.*;
-import scheduler.domain.*;
+
+import softwarehuset.scheduler.domain.*;
 
 public class Scheduler {
 	private List<Developer> developers;

@@ -1,4 +1,4 @@
-package scheduler.application;
+package softwarehuset.scheduler.application;
 
 public class InvalidNameException extends Exception {
 	public InvalidNameException(String message) {

@@ -1,10 +1,10 @@
-package scheduler.domain;
+package softwarehuset.scheduler.domain;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import scheduler.domain.Project;
+import softwarehuset.scheduler.domain.Project;
 
 public class Developer {
 	private String id;
