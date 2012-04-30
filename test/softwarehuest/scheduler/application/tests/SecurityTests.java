@@ -1,4 +1,4 @@
-package scheduler.application.tests;
+package softwarehuest.scheduler.application.tests;
 
 import static org.junit.Assert.*;
 
