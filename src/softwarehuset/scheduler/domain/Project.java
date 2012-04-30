@@ -48,6 +48,9 @@ public class Project {
 
 	public void setProjectLeader(Developer projectLeader) {
 		this.projectLeader = projectLeader;
+		if (!developers.contains(projectLeader)) {
+			developers.add(projectLeader);
+		}
 	}
 
 	public List<Developer> getDevelopers() {
