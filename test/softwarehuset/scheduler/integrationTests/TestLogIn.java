@@ -19,7 +19,7 @@ public class TestLogIn {
 	
 	@Test
 	public void testWithCorrectCredentials() throws IncorrectCredentialsException {
-		DeveloperSession session = scheduler.logIn(developer.getName(), developer.getPin());
+		Session session = scheduler.logIn(developer.getName(), developer.getPin());
 		assertEquals(developer, session.getDeveloper());
 	}
 	

@@ -7,15 +7,15 @@ import java.util.List;
 public class Activity {
 	private String id;
 	private String description;
-	private Calendar createdDate;
+	private Calendar creationDate;
 	private Calendar dueDate;
 	private Project project;
 	private List<Developer> developers;
 	private Developer author;
 	
-	public Activity(String description, Calendar createdDate, Calendar dueDate) {
+	public Activity(String description, Calendar creationDate, Calendar dueDate) {
 		this.description = description;
-		this.createdDate = createdDate;
+		this.creationDate = creationDate;
 		this.dueDate = dueDate;
 		this.developers = new ArrayList<Developer>();
 	}
@@ -36,12 +36,12 @@ public class Activity {
 		this.description = description;
 	}
 
-	public Calendar getCreatedDate() {
-		return this.createdDate;
+	public Calendar getCreationDate() {
+		return this.creationDate;
 	}
 
-	public void setCreatedDate(Calendar createdDate) {
-		this.createdDate = createdDate;
+	public void setCreationDate(Calendar createdDate) {
+		this.creationDate = createdDate;
 	}
 
 	public Calendar getDueDate() {

@@ -22,11 +22,10 @@ public class TestChooseProjectLeader {
 	
 	@Test
 	public void testAsProjectAuthor() throws Exception {
-		DeveloperSession developerSession = scheduler.logIn(developer1.getName(), developer1.getPin());
+		Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
 		Project project = new Project("Peters Projekt");
-		developerSession.registerProject(project);
-		ProjectSession projectSession = developerSession.getProjectSession(project);
-		projectSession.chooseProjectLeader(developer2);
+		session.registerProject(project);
+		session.chooseProjectLeader(project, developer2);
 		assertEquals(developer2, project.getProjectLeader());
 	}
 	
@@ -45,14 +44,13 @@ public class TestChooseProjectLeader {
 	
 	@Test
 	public void testAsNonProjectDeveloperOrAuthor() throws Exception {
-		DeveloperSession developerSession = scheduler.logIn(developer1.getName(), developer1.getPin());
+		Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
 		Project project = new Project("Peters Projekt");
-		developerSession.registerProject(project);
+		session.registerProject(project);
 		
-		developerSession = scheduler.logIn(developer2.getName(), developer2.getPin());
-		ProjectSession projectSession = developerSession.getProjectSession(project);
+		session = scheduler.logIn(developer2.getName(), developer2.getPin());
 		try {
-			projectSession.chooseProjectLeader(developer2);
+			session.chooseProjectLeader(project, developer2);
 			fail("Expected InsufficientRightsException");
 		} catch (InsufficientRightsException e) {
 			assertEquals("Only the project author or a developer on the project can choose a project leader", e.getMessage());
@@ -61,13 +59,12 @@ public class TestChooseProjectLeader {
 	
 	@Test
 	public void testAsNonRegisteredDeveloper() throws Exception {
-		DeveloperSession developerSession = scheduler.logIn(developer1.getName(), developer1.getPin());
+		Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
 		Project project = new Project("Peters Projekt");
-		developerSession.registerProject(project);
-		ProjectSession projectSession = developerSession.getProjectSession(project);
+		session.registerProject(project);
 		Developer fakeDeveloper = new Developer("Un Registered", "12345");
 		try {
-			projectSession.chooseProjectLeader(fakeDeveloper);
+			session.chooseProjectLeader(project, fakeDeveloper);
 			fail("Expected NonRegisteredDeveloperException");
 		} catch (NonRegisteredDeveloperException e) {
 			assertEquals(fakeDeveloper, e.getDeveloper());

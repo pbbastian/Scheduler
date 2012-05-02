@@ -29,14 +29,18 @@ public class Scheduler {
 		developers.add(developer);
 	}
 	
-	public DeveloperSession logIn(String name, String pin) throws IncorrectCredentialsException {
+	public Session logIn(String name, String pin) throws IncorrectCredentialsException {
 		for (Developer developer : developers) {
 			if (developer.getName().equals(name) && developer.getPin().equals(pin)) {
-				return new DeveloperSession(this, developer);
+				return new Session(this, developer);
 			}
 		}
 		
 		throw new IncorrectCredentialsException("No user with that name and pin was found");
+	}
+	
+	public boolean isRegistered(Developer projectLeader) {
+		return developers.contains(projectLeader);
 	}
 
 	public List<Developer> getDevelopers() {
