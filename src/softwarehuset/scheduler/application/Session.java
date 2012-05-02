@@ -29,7 +29,7 @@ public class Session {
 		this.scheduler.getProjects().add(project);
 	}
 	
-	public void chooseProjectLeader(Project project, Developer projectLeader) throws InsufficientRightsException, InvalidProjectLeader, NonRegisteredDeveloperException {
+	public void chooseProjectLeader(Project project, Developer projectLeader) throws InsufficientRightsException, NonRegisteredDeveloperException {
 		if (!scheduler.isRegistered(projectLeader)) {
 			throw new NonRegisteredDeveloperException(projectLeader, "Project leader must be a registered developer");
 		}
@@ -53,7 +53,7 @@ public class Session {
 		project.getDevelopers().add(developer);
 	}
 
-	public void addActivityToProject(Activity activity, Project project) throws ArgumentException, NonProjectLeaderException {
+	public void addActivityToProject(Activity activity, Project project) throws ArgumentException, NonProjectLeaderException, NonRegisteredProjectException {
 		if (activity.getDescription() == null) {
 			throw new NullPointerException("Activity description cannot be null");
 		}
@@ -69,8 +69,18 @@ public class Session {
 		if (!project.getProjectLeader().equals(developer)) {
 			throw new NonProjectLeaderException(developer, "Only the project leader can add activities");
 		}
+		if (!scheduler.isRegistered(project)) {
+			throw new NonRegisteredProjectException(project, "Can't add an activity to a non-registered project");
+		}
 		activity.setAuthor(developer);
 		activity.setId(UUID.randomUUID().toString());
 		project.getActivities().add(activity);
+	}
+	
+	public void endProject(Project project) throws NonProjectLeaderException {
+		if (!project.getProjectLeader().equals(developer)) {
+			throw new NonProjectLeaderException(developer, "Only the project leader can end projects");
+		}
+		project.setOngoing(false);
 	}
 }

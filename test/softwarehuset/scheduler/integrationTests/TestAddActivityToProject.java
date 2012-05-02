@@ -98,4 +98,18 @@ public class TestAddActivityToProject {
 			assertEquals("Only the project leader can add activities", e.getMessage());
 		}
 	}
+	
+	@Test
+	public void testWithNonRegisteredProject() throws Exception {
+		Activity activity = new Activity("Create more tests", Week.get(1), Week.get(2));
+		Project fakeProject = new Project("Fake project");
+		fakeProject.setProjectLeader(projectLeader);
+		try {
+			projectLeaderSession.addActivityToProject(activity, fakeProject);
+			fail("Expected NonRegisteredProjectException");
+		} catch (NonRegisteredProjectException e) {
+			assertEquals(fakeProject, e.getProject());
+			assertEquals("Can't add an activity to a non-registered project", e.getMessage());
+		}
+	}
 }

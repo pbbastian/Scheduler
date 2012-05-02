@@ -9,6 +9,7 @@ public class Project {
 	private String name;
 	private Developer author;
 	private Developer projectLeader;
+	private boolean ongoing;
 	private List<Developer> developers;
 	private List<Activity> activities;
 	
@@ -16,6 +17,7 @@ public class Project {
 		this.name = name;
 		this.developers = new ArrayList<Developer>();
 		this.activities = new ArrayList<Activity>();
+		this.ongoing = true;
 	}
 
 	public String getId() {
@@ -51,6 +53,14 @@ public class Project {
 		if (!developers.contains(projectLeader)) {
 			developers.add(projectLeader);
 		}
+	}
+	
+	public boolean isOngoing() {
+		return ongoing;
+	}
+	
+	public void setOngoing(boolean ongoing) {
+		this.ongoing = ongoing;
 	}
 
 	public List<Developer> getDevelopers() {

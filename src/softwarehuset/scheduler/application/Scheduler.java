@@ -42,6 +42,10 @@ public class Scheduler {
 	public boolean isRegistered(Developer projectLeader) {
 		return developers.contains(projectLeader);
 	}
+	
+	public boolean isRegistered(Project project) {
+		return projects.contains(project);
+	}
 
 	public List<Developer> getDevelopers() {
 		return developers;
