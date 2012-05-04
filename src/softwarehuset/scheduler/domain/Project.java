@@ -1,7 +1,6 @@
 package softwarehuset.scheduler.domain;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Project {
@@ -9,7 +8,7 @@ public class Project {
 	private String name;
 	private Developer author;
 	private Developer projectLeader;
-	private boolean ongoing;
+	private Status status;
 	private List<Developer> developers;
 	private List<Activity> activities;
 	
@@ -17,7 +16,17 @@ public class Project {
 		this.name = name;
 		this.developers = new ArrayList<Developer>();
 		this.activities = new ArrayList<Activity>();
-		this.ongoing = true;
+		this.status = Status.ONGOING;
+	}
+	
+	public void addActivity(Activity activity) {
+		activity.setProject(this);
+		activities.add(activity);
+	}
+	
+	public void addDeveloper(Developer developer) {
+		developer.getProjects().add(this);
+		developers.add(developer);
 	}
 
 	public String getId() {
@@ -55,12 +64,12 @@ public class Project {
 		}
 	}
 	
-	public boolean isOngoing() {
-		return ongoing;
+	public Status getStatus() {
+		return status;
 	}
 	
-	public void setOngoing(boolean ongoing) {
-		this.ongoing = ongoing;
+	public void setStatus(Status status) {
+		this.status = status;
 	}
 
 	public List<Developer> getDevelopers() {
@@ -70,4 +79,11 @@ public class Project {
 	public List<Activity> getActivities() {
 		return activities;
 	}
+
+    public void removeActivity(Activity activity) {
+        activities.remove(activity);
+        for (Developer developer : developers) {
+            developer.getCurrentActivities().remove(activity);
+        }
+    }
 }

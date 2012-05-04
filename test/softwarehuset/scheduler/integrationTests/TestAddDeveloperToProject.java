@@ -5,6 +5,8 @@ import org.junit.*;
 
 import softwarehuset.scheduler.application.*;
 import softwarehuset.scheduler.domain.*;
+import softwarehuset.scheduler.exceptions.NonProjectLeaderException;
+import softwarehuset.scheduler.exceptions.NonRegisteredDeveloperException;
 
 public class TestAddDeveloperToProject {
 	Scheduler scheduler;
@@ -37,6 +39,7 @@ public class TestAddDeveloperToProject {
 	public void testAsProjectLeader() throws Exception {
 		projectLeaderSession.addDeveloperToProject(developer, project);
 		assertTrue(project.getDevelopers().contains(developer));
+		assertTrue(developer.getProjects().contains(project));
 	}
 	
 	@Test

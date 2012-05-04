@@ -5,6 +5,8 @@ import static org.junit.Assert.*;
 import org.junit.*;
 import softwarehuset.scheduler.application.*;
 import softwarehuset.scheduler.domain.*;
+import softwarehuset.scheduler.exceptions.AlreadyRegisteredProjectException;
+import softwarehuset.scheduler.exceptions.ArgumentException;
 
 public class TestCreateProject {
 	Scheduler scheduler;
@@ -26,6 +28,7 @@ public class TestCreateProject {
 		assertTrue(scheduler.getProjects().contains(project));
 		assertNotNull(project.getId());
 		assertEquals(developer, project.getAuthor());
+		assertEquals(Status.ONGOING, project.getStatus());
 	}
 	
 	@Test

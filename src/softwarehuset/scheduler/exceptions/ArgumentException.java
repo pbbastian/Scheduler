@@ -1,4 +1,4 @@
-package softwarehuset.scheduler.application;
+package softwarehuset.scheduler.exceptions;
 
 public class ArgumentException extends Exception {
 	private Object argument;

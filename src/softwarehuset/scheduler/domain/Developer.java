@@ -2,9 +2,6 @@ package softwarehuset.scheduler.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
-
-import softwarehuset.scheduler.domain.Project;
 
 public class Developer {
 	private String id;
@@ -21,6 +18,11 @@ public class Developer {
 		this.privateActivities = new ArrayList<Activity>();
 		this.currentActivities = new ArrayList<Activity>();
 	}
+    
+    public void addActivity(Activity activity) {
+        activity.getDevelopers().add(this);
+        currentActivities.add(activity);
+    }
 	
 	public boolean equals(Developer otherDeveloper) {
 		return otherDeveloper.getId().equals(id);

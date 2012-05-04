@@ -12,12 +12,14 @@ public class Activity {
 	private Project project;
 	private List<Developer> developers;
 	private Developer author;
-	
-	public Activity(String description, Calendar creationDate, Calendar dueDate) {
+    private Status status;
+
+    public Activity(String description, Calendar creationDate, Calendar dueDate) {
 		this.description = description;
 		this.creationDate = creationDate;
 		this.dueDate = dueDate;
 		this.developers = new ArrayList<Developer>();
+        this.status = Status.ONGOING;
 	}
 
 	public String getId() {
@@ -71,4 +73,12 @@ public class Activity {
 	public void setAuthor(Developer author) {
 		this.author = author;
 	}
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

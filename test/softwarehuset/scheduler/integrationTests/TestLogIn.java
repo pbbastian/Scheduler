@@ -5,6 +5,8 @@ import org.junit.*;
 
 import softwarehuset.scheduler.application.*;
 import softwarehuset.scheduler.domain.*;
+import softwarehuset.scheduler.exceptions.ArgumentException;
+import softwarehuset.scheduler.exceptions.IncorrectCredentialsException;
 
 public class TestLogIn {
 	Scheduler scheduler;

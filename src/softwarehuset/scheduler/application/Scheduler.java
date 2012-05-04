@@ -1,8 +1,14 @@
 package softwarehuset.scheduler.application;
 
-import java.util.*;
+import softwarehuset.scheduler.domain.Developer;
+import softwarehuset.scheduler.domain.Project;
+import softwarehuset.scheduler.exceptions.ArgumentException;
+import softwarehuset.scheduler.exceptions.IncorrectCredentialsException;
 
-import softwarehuset.scheduler.domain.*;
+import java.util.ArrayList;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.UUID;
 
 public class Scheduler {
 	private List<Developer> developers;
@@ -12,8 +18,14 @@ public class Scheduler {
 		this.developers = new ArrayList<Developer>();
 		this.projects = new ArrayList<Project>();
 	}
-	
-	public void register(Developer developer) throws ArgumentException {
+
+    public static GregorianCalendar getWeek(int week) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(GregorianCalendar.WEEK_OF_YEAR, week);
+        return calendar;
+    }
+
+    public void register(Developer developer) throws ArgumentException {
 		if (developer.getName() == null) {
 			throw new NullPointerException("Developer name cannot be null");
 		} else if (developer.getName().length() < 1) {
@@ -51,15 +63,7 @@ public class Scheduler {
 		return developers;
 	}
 
-	public void setDevelopers(List<Developer> developers) {
-		this.developers = developers;
-	}
-
 	public List<Project> getProjects() {
 		return projects;
-	}
-
-	public void setProjects(List<Project> projects) {
-		this.projects = projects;
 	}
 }

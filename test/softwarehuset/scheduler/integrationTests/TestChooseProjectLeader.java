@@ -1,10 +1,17 @@
 package softwarehuset.scheduler.integrationTests;
 
-import static org.junit.Assert.*;
-import org.junit.*;
+import org.junit.Before;
+import org.junit.Test;
+import softwarehuset.scheduler.application.Scheduler;
+import softwarehuset.scheduler.application.Session;
+import softwarehuset.scheduler.domain.Developer;
+import softwarehuset.scheduler.domain.Project;
+import softwarehuset.scheduler.exceptions.ArgumentException;
+import softwarehuset.scheduler.exceptions.IncorrectCredentialsException;
+import softwarehuset.scheduler.exceptions.InsufficientRightsException;
+import softwarehuset.scheduler.exceptions.NonRegisteredDeveloperException;
 
-import softwarehuset.scheduler.application.*;
-import softwarehuset.scheduler.domain.*;
+import static org.junit.Assert.*;
 
 public class TestChooseProjectLeader {
 	Scheduler scheduler;
@@ -27,6 +34,7 @@ public class TestChooseProjectLeader {
 		session.registerProject(project);
 		session.chooseProjectLeader(project, developer2);
 		assertEquals(developer2, project.getProjectLeader());
+        assertTrue(developer2.getProjects().contains(project));
 	}
 	
 //	@Test

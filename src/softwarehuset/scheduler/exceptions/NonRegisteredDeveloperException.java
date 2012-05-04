@@ -1,4 +1,4 @@
-package softwarehuset.scheduler.application;
+package softwarehuset.scheduler.exceptions;
 
 import softwarehuset.scheduler.domain.Developer;
 

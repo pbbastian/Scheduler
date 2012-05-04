@@ -1,11 +1,11 @@
-package softwarehuset.scheduler.application;
+package softwarehuset.scheduler.exceptions;
 
 import softwarehuset.scheduler.domain.Project;
 
-public class NonRegisteredProjectException extends Exception {
+public class AlreadyRegisteredProjectException extends Exception {
 	private Project project;
 	
-	public NonRegisteredProjectException(Project project, String message) {
+	public AlreadyRegisteredProjectException(Project project, String message) {
 		super(message);
 		this.project = project;
 	}

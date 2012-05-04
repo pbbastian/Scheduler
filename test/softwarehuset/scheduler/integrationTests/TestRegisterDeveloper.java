@@ -6,6 +6,7 @@ import org.junit.*;
 
 import softwarehuset.scheduler.application.*;
 import softwarehuset.scheduler.domain.*;
+import softwarehuset.scheduler.exceptions.ArgumentException;
 
 public class TestRegisterDeveloper {
 	Scheduler scheduler;
