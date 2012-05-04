@@ -40,7 +40,7 @@ public class TestAddPrivateActivity {
     
     @Test
     public void testWithValidPrivateActivity() throws Exception {
-        PrivateActivity privateActivity = new PrivateActivity("Ferie", Scheduler.getWeek(1), Scheduler.getWeek(2));
+        PrivateActivity privateActivity = new PrivateActivity("Ferie", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         developerSession.addPrivateActivity(privateActivity);
         assertTrue(developer.getPrivateActivities().contains(privateActivity));
         assertTrue(privateActivity.getDeveloper().equals(developer));
@@ -53,22 +53,22 @@ public class TestAddPrivateActivity {
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPrivateActivityDescription() throws Exception {
-        developerSession.addPrivateActivity(new PrivateActivity(null, Scheduler.getWeek(1), Scheduler.getWeek(2)));
+        developerSession.addPrivateActivity(new PrivateActivity(null, Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012)));
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPrivateActivityStart() throws Exception {
-        developerSession.addPrivateActivity(new PrivateActivity("Ferie", null, Scheduler.getWeek(2)));
+        developerSession.addPrivateActivity(new PrivateActivity("Ferie", null, Scheduler.getWeek(2, 2012)));
     }
 
     @Test(expected = NullPointerException.class)
     public void testWithNullPrivateActivityEnd() throws Exception {
-        developerSession.addPrivateActivity(new PrivateActivity("Ferie", Scheduler.getWeek(1), null));
+        developerSession.addPrivateActivity(new PrivateActivity("Ferie", Scheduler.getWeek(1, 2012), null));
     }
     
     @Test
     public void testWithTooShortPrivateActivityDescription() {
-        PrivateActivity privateActivity = new PrivateActivity("", Scheduler.getWeek(1), Scheduler.getWeek(2));
+        PrivateActivity privateActivity = new PrivateActivity("", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         try {
             developerSession.addPrivateActivity(privateActivity);
         } catch (ArgumentException e) {

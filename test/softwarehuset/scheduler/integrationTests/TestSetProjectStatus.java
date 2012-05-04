@@ -68,12 +68,12 @@ public class TestSetProjectStatus {
 
     @Test
     public void testWithOngoingActivity() throws Exception {
-        Activity activity1 = new Activity("Create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+        Activity activity1 = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity1, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity1, developer);
 
-        Activity activity2 = new Activity("Create even more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+        Activity activity2 = new Activity("Create even more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity2, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity2, developer);

@@ -1,5 +1,6 @@
 package softwarehuset.scheduler.cli;
 
+import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Project;
 
@@ -8,10 +9,12 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 
 public class SelectProjectDialog implements Dialog {
+    private Scheduler scheduler;
     private Session session;
     private Dialog previousDialog;
 
-    public SelectProjectDialog(Session session, Dialog previousDialog) {
+    public SelectProjectDialog(Scheduler scheduler, Session session, Dialog previousDialog) {
+        this.scheduler = scheduler;
         this.session = session;
         this.previousDialog = previousDialog;
     }
@@ -29,7 +32,7 @@ public class SelectProjectDialog implements Dialog {
                 description += "developer";
             }
             description += ")";
-            projectChoices.add(new Choice(description, null));
+            projectChoices.add(new Choice(description, new ProjectDialog(scheduler, session, project, this)));
         }
 
         Choice[] projectChoicesArray = new Choice[projectChoices.size()];

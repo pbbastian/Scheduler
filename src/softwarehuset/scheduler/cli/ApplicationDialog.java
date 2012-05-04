@@ -16,8 +16,8 @@ public class ApplicationDialog implements Dialog {
     public void display(InputStream in, PrintStream out) {
         ChoiceDialog choiceDialog1 = new ChoiceDialog(new Choice[]{
                 new Choice("Log in", new LogInDialog(scheduler, this)),
-                new Choice("Register", new RegisterDialog(scheduler, this)),
-                new Choice("Exit application", new ExitDialog(this))
+                new Choice("Register as a new developer", new RegisterDialog(scheduler, this)),
+                new Choice("Exit the application", new ExitDialog(this))
         }, "Available actions:", "Select an action: ");
         choiceDialog1.display(in, out);
     }

@@ -40,7 +40,7 @@ public class TestAssignActivityToDeveloper {
         project = new Project("Test Project");
         authorSession.registerProject(project);
         authorSession.chooseProjectLeader(project, projectLeader);
-        activity = new Activity("Create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+        activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
     }
@@ -64,7 +64,7 @@ public class TestAssignActivityToDeveloper {
     
     @Test
     public void testWithDeveloperNotInProject() throws Exception {
-        Activity anotherActivity = new Activity("Don't create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+        Activity anotherActivity = new Activity("Don't create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         Project anotherProject = new Project("Another project");
         authorSession.registerProject(anotherProject);
         authorSession.chooseProjectLeader(anotherProject, projectLeader);

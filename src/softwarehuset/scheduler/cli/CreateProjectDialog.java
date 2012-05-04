@@ -26,13 +26,13 @@ public class CreateProjectDialog implements Dialog {
         boolean validProject = false;
         Project project = null;
         while(!validProject) {
-            out.print("Enter a project name: ");
+            out.print("Enter a name for the project: ");
             String name = new Scanner(in).nextLine();
             try {
                 project = new Project(name);
                 session.registerProject(project);
                 validProject = true;
-                out.println("You have successfully created a project named " + name + "!");
+                out.println("You have successfully created a new project named '" + name + "'!");
             } catch (AlreadyRegisteredProjectException e) {
                 e.printStackTrace();  // This shouldn't be possible
             } catch (ArgumentException e) {
@@ -57,7 +57,8 @@ public class CreateProjectDialog implements Dialog {
                 try {
                     session.chooseProjectLeader(project, projectLeader);
                     validProject = true;
-                    out.println("You have successfully chosen " + projectLeader.getName() + " as the project leader!");
+                    out.println("You have successfully chosen '" + projectLeader.getName()
+                            + "' as the project leader for the project '" + project.getName() + "'!");
                     previousDialog.display(in, out);
                 } catch (Exception e) {
                     e.printStackTrace();  // For this current scenario this shouldn't be possible

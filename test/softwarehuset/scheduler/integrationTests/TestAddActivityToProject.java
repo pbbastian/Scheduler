@@ -43,7 +43,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testAsProjectLeader() throws Exception {
-		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		projectLeaderSession.addActivityToProject(activity, project);
 		assertTrue(project.getActivities().contains(activity));
 		assertEquals(project, activity.getProject());
@@ -54,7 +54,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testAsProjectLeaderWithNullActivityName() throws Exception {
-		Activity activity = new Activity(null, Scheduler.getWeek(1), Scheduler.getWeek(2));
+		Activity activity = new Activity(null, Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
 			fail("Expected NullPointerException");
@@ -65,7 +65,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testAsProjectLeaderWithNullCreationDate() throws Exception {
-		Activity activity = new Activity("Create more tests", null, Scheduler.getWeek(2));
+		Activity activity = new Activity("Create more tests", null, Scheduler.getWeek(2, 2012));
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
 			fail("Expected NullPointerException");
@@ -76,7 +76,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testAsProjectLeaderWithNullDueDate() throws Exception {
-		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1), null);
+		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), null);
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
 			fail("Expected NullPointerException");
@@ -87,7 +87,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testAsProjectLeaderWithTooShortActivityName() throws Exception {
-		Activity activity = new Activity("", Scheduler.getWeek(1), Scheduler.getWeek(2));
+		Activity activity = new Activity("", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
 			fail("Expected ArgumentException");
@@ -99,7 +99,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testAsNonProjectLeader() throws Exception {
-		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		try {
 			developerSession.addActivityToProject(activity, project);
 			fail("Expected NonProjectLeaderException");
@@ -111,7 +111,7 @@ public class TestAddActivityToProject {
 	
 	@Test
 	public void testWithNonRegisteredProject() throws Exception {
-		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
+		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		Project fakeProject = new Project("Fake project");
 		fakeProject.setProjectLeader(projectLeader);
 		try {

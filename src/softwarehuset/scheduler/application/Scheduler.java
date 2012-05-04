@@ -19,8 +19,9 @@ public class Scheduler {
 		this.projects = new ArrayList<Project>();
 	}
 
-    public static GregorianCalendar getWeek(int week) {
+    public static GregorianCalendar getWeek(int week, int year) {
         GregorianCalendar calendar = new GregorianCalendar();
+        calendar.set(GregorianCalendar.YEAR, year);
         calendar.set(GregorianCalendar.WEEK_OF_YEAR, week);
         return calendar;
     }
