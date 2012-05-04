@@ -56,6 +56,7 @@ public class CreateProjectDialog implements Dialog {
             } else {
                 try {
                     session.chooseProjectLeader(project, projectLeader);
+                    validProject = true;
                     out.println("You have successfully chosen " + projectLeader.getName() + " as the project leader!");
                     previousDialog.display(in, out);
                 } catch (Exception e) {

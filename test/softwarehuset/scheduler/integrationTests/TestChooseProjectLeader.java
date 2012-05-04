@@ -35,6 +35,7 @@ public class TestChooseProjectLeader {
 		session.chooseProjectLeader(project, developer2);
 		assertEquals(developer2, project.getProjectLeader());
         assertTrue(developer2.getProjects().contains(project));
+        assertTrue(project.getDevelopers().contains(developer2));
 	}
 	
 //	@Test
