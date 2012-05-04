@@ -18,7 +18,7 @@ public class ApplicationDialog implements Dialog {
                 new Choice("Log in", new LogInDialog(scheduler, this)),
                 new Choice("Register", new RegisterDialog(scheduler, this)),
                 new Choice("Exit application", new ExitDialog(this))
-        });
+        }, "Available actions:", "Select an action: ");
         choiceDialog1.display(in, out);
     }
 }

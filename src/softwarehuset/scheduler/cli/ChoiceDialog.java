@@ -5,34 +5,32 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class ChoiceDialog implements Dialog {
-
     private Choice[] choices;
-    private String choice;
+    private String titleText;
+    private String selectText;
 
-    public ChoiceDialog(Choice[] choices) {
+    public ChoiceDialog(Choice[] choices, String titleText, String selectText) {
         this.choices = choices;
+        this.titleText = titleText;
+        this.selectText = selectText;
     }
 
     @Override
     public void display(InputStream in, PrintStream out) {
-        out.println("Available actions:");
+        out.println(titleText);
         for (int i = 0; i < choices.length; i++) {
             out.printf("  [%d] %s\n", i+1, choices[i].getDescription());
         }
-        
+
         int choice = -1;
         while (choice == -1) {
-            out.print("Select an action: ");
+            out.print(selectText);
             choice = new Scanner(in).nextInt() - 1;
             if (choice < 0 || choice >= choices.length) {
                 choice = -1;
             }
         }
-        
-        choices[choice].getDialog().display(in, out);
-    }
 
-    public String getChoice() {
-        return choice;
+        choices[choice].getDialog().display(in, out);
     }
 }

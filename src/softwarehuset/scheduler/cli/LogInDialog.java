@@ -30,7 +30,7 @@ public class LogInDialog implements Dialog {
                 session = scheduler.logIn(name, pin);
                 validLogin = true;
                 out.println("You are now logged in as " + name + "!");
-                new SessionDialog(session, previousDialog).display(in, out);
+                new SessionDialog(scheduler, session, previousDialog).display(in, out);
             } catch (IncorrectCredentialsException e) {
                 out.println("Invalid name and PIN combination, please try again.");
             }
