@@ -6,6 +6,6 @@ public class Application {
     public static void main(String[] args) {
         Scheduler scheduler = new Scheduler();
 
-        new ApplicationDialog(scheduler).display();
+        new ApplicationDialog(scheduler).display(System.in, System.out);
     }
 }

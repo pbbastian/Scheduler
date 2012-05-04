@@ -4,6 +4,8 @@ import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.exceptions.ArgumentException;
 
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 public class RegisterDialog implements Dialog {
@@ -16,7 +18,7 @@ public class RegisterDialog implements Dialog {
     }
     
     @Override
-    public void display() {
+    public void display(InputStream in, PrintStream out) {
         boolean validRegistration = false;
         while(!validRegistration) {
             System.out.print("Enter your name: ");
@@ -27,7 +29,7 @@ public class RegisterDialog implements Dialog {
                 scheduler.register(new Developer(name, pin));
                 System.out.println("You have successfully registered as " + name + "!");
                 validRegistration = true;
-                returnDialog.display();
+                returnDialog.display(System.in, System.out);
             } catch (ArgumentException e) {
                 if (e.getArgument().equals(name)) {
                     System.out.println("Invalid name, please try again.");
