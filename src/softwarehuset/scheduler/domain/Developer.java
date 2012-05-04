@@ -8,14 +8,14 @@ public class Developer {
 	private String name;
 	private String pin;
 	private List<Project> projects;
-	private List<Activity> privateActivities;
+	private List<PrivateActivity> privateActivities;
 	private List<Activity> currentActivities;
 	
 	public Developer(String name, String pin) {
 		this.name = name;
 		this.pin = pin;
 		this.projects = new ArrayList<Project>();
-		this.privateActivities = new ArrayList<Activity>();
+		this.privateActivities = new ArrayList<PrivateActivity>();
 		this.currentActivities = new ArrayList<Activity>();
 	}
     
@@ -56,7 +56,7 @@ public class Developer {
 		return projects;
 	}
 
-	public List<Activity> getPrivateActivities() {
+	public List<PrivateActivity> getPrivateActivities() {
 		return privateActivities;
 	}
 
@@ -67,5 +67,10 @@ public class Developer {
     public void removeActivity(Activity activity) {
         activity.getDevelopers().remove(this);
         currentActivities.remove(activity);
+    }
+
+    public void addPrivateActivity(PrivateActivity privateActivity) {
+        privateActivity.setDeveloper(this);
+        privateActivities.add(privateActivity);
     }
 }

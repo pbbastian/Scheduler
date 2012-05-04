@@ -1,10 +1,8 @@
 package softwarehuset.scheduler.application;
 
-import softwarehuset.scheduler.domain.Activity;
-import softwarehuset.scheduler.domain.Developer;
-import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.domain.Status;
+import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.*;
+import softwarehuset.scheduler.domain.PrivateActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -154,5 +152,15 @@ public class Session {
             throw new ActivityNotAssignedToDeveloperException("Can't unassign an activity from a developer that it's not assigned to");
         }
         developer.removeActivity(activity);
+    }
+
+    public void addPrivateActivity(PrivateActivity privateActivity) throws ArgumentException {
+        if (privateActivity.getDescription() == null || privateActivity.getStart() == null || privateActivity.getEnd() == null) {
+            throw new NullPointerException();
+        }
+        if (privateActivity.getDescription().length() < 1) {
+            throw new ArgumentException(privateActivity.getDescription(), "Private activity description must have a length of minimum 1");
+        }
+        developer.addPrivateActivity(privateActivity);
     }
 }
