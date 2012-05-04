@@ -8,10 +8,12 @@ import java.util.Scanner;
 
 public class LogInDialog implements Dialog {
     private Scheduler scheduler;
+    private Dialog previousDialog;
     private Session session;
 
-    public LogInDialog(Scheduler scheduler) {
+    public LogInDialog(Scheduler scheduler, Dialog previousDialog) {
         this.scheduler = scheduler;
+        this.previousDialog = previousDialog;
     }
     
     @Override
@@ -24,8 +26,9 @@ public class LogInDialog implements Dialog {
             String pin = new Scanner(System.in).nextLine();
             try {
                 session = scheduler.logIn(name, pin);
+                validLogin = true;
                 System.out.println("You are now logged in as " + name + "!");
-                return;
+                new SessionDialog(session, previousDialog).display();
             } catch (IncorrectCredentialsException e) {
                 System.out.println("Invalid name and PIN combination");
             }
