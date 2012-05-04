@@ -86,4 +86,12 @@ public class Project {
             developer.getCurrentActivities().remove(activity);
         }
     }
+
+    public void removeDeveloper(Developer developer) {
+        for (Activity activity : activities) {
+            developer.getCurrentActivities().remove(activity);
+        }
+        developer.getProjects().remove(this);
+        developers.remove(developer);
+    }
 }

@@ -63,4 +63,9 @@ public class Developer {
 	public List<Activity> getCurrentActivities() {
 		return currentActivities;
 	}
+
+    public void removeActivity(Activity activity) {
+        activity.getDevelopers().remove(this);
+        currentActivities.remove(activity);
+    }
 }

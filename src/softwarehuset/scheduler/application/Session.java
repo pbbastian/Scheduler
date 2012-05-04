@@ -129,7 +129,10 @@ public class Session {
         activity.getProject().removeActivity(activity);
     }
 
-    public void removeProject(Project project) {
+    public void removeProject(Project project) throws InsufficientRightsException {
+        if (!project.getAuthor().equals(developer) && !project.getProjectLeader().equals(developer)) {
+            throw new InsufficientRightsException("Only the project author or leader can remove it");
+        }
         scheduler.getProjects().remove(project);
         for (Developer developer : project.getDevelopers()) {
             developer.getProjects().remove(project);
@@ -137,5 +140,19 @@ public class Session {
                 developer.getCurrentActivities().remove(activity);
             }
         }
+    }
+
+    public void removeDeveloperFromProject(Developer developer, Project project) throws InsufficientRightsException {
+        if (!project.getProjectLeader().equals(this.developer)) {
+            throw new InsufficientRightsException("Only the project leader can remove developers from the project");
+        }
+        project.removeDeveloper(developer);
+    }
+
+    public void unassignActivityFromDeveloper(Activity activity, Developer developer) throws ActivityNotAssignedToDeveloperException {
+        if (!activity.getDevelopers().contains(developer)) {
+            throw new ActivityNotAssignedToDeveloperException("Can't unassign an activity from a developer that it's not assigned to");
+        }
+        developer.removeActivity(activity);
     }
 }

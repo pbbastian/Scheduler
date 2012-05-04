@@ -2,18 +2,16 @@ package softwarehuset.scheduler.integrationTests;
 
 import org.junit.Before;
 import org.junit.Test;
+import softwarehuset.scheduler.application.ActivityNotAssignedToDeveloperException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.fail;
+import static junit.framework.Assert.*;
 
-public class TestRemoveProject {
+public class TestUnassignActivityFromDeveloper {
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -44,35 +42,22 @@ public class TestRemoveProject {
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity, developer);
     }
-    
-    @Test
-    public void testAsAuthor() throws Exception {
-        authorSession.removeProject(project);
-        assertFalse(scheduler.getProjects().contains(project));
-        assertFalse(developer.getProjects().contains(project));
-        assertFalse(developer.getCurrentActivities().contains(activity));
-    }
-    
+
     @Test
     public void testAsProjectLeader() throws Exception {
-        projectLeaderSession.removeProject(project);
-        assertFalse(scheduler.getProjects().contains(project));
-        assertFalse(developer.getProjects().contains(project));
+        projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
         assertFalse(developer.getCurrentActivities().contains(activity));
-    }
-    
-    @Test
-    public void testAsNonAuthorOrProjectLeader() throws Exception {
-        try {
-            developerSession.removeProject(project);
-            fail("Expected InsufficientRightsException");
-        } catch (InsufficientRightsException e) {
-            assertEquals("Only the project author or leader can remove it", e.getMessage());
-        }
+        assertFalse(activity.getDevelopers().contains(developer));
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullProject() throws Exception {
-        projectLeaderSession.removeProject(null);
+    @Test
+    public void testWithActivityNotAssignedToDeveloper() throws Exception {
+        projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
+        try {
+            projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
+            fail("Expected ActivityNotAssignedToDeveloperException");
+        } catch (ActivityNotAssignedToDeveloperException e) {
+            assertEquals("Can't unassign an activity from a developer that it's not assigned to", e.getMessage());
+        }
     }
 }

@@ -9,11 +9,9 @@ import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
 import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.*;
 
-public class TestRemoveProject {
+public class TestRemoveDeveloperFromProject {
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -42,37 +40,29 @@ public class TestRemoveProject {
         activity = new Activity("Create more tests", Scheduler.getWeek(1), Scheduler.getWeek(2));
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
-        projectLeaderSession.assignActivityToDeveloper(activity, developer);
-    }
-    
-    @Test
-    public void testAsAuthor() throws Exception {
-        authorSession.removeProject(project);
-        assertFalse(scheduler.getProjects().contains(project));
-        assertFalse(developer.getProjects().contains(project));
-        assertFalse(developer.getCurrentActivities().contains(activity));
-    }
-    
-    @Test
-    public void testAsProjectLeader() throws Exception {
-        projectLeaderSession.removeProject(project);
-        assertFalse(scheduler.getProjects().contains(project));
-        assertFalse(developer.getProjects().contains(project));
-        assertFalse(developer.getCurrentActivities().contains(activity));
-    }
-    
-    @Test
-    public void testAsNonAuthorOrProjectLeader() throws Exception {
-        try {
-            developerSession.removeProject(project);
-            fail("Expected InsufficientRightsException");
-        } catch (InsufficientRightsException e) {
-            assertEquals("Only the project author or leader can remove it", e.getMessage());
-        }
     }
 
-    @Test(expected = NullPointerException.class)
-    public void testWithNullProject() throws Exception {
-        projectLeaderSession.removeProject(null);
+    @Test
+    public void testAsProjectLeader() throws Exception {
+        projectLeaderSession.removeDeveloperFromProject(developer, project);
+        assertFalse(project.getDevelopers().contains(developer));
+        assertFalse(developer.getProjects().contains(project));
+        assertFalse(developer.getCurrentActivities().contains(activity));
+        assertFalse(activity.getDevelopers().contains(developer));
+    }
+    
+    @Test
+    public void testAsNonProjectLeader() throws Exception {
+        try {
+            authorSession.removeDeveloperFromProject(developer, project);
+            fail("Expected InsufficientRightsException");
+        } catch (InsufficientRightsException e) {
+            assertEquals("Only the project leader can remove developers from the project", e.getMessage());
+        }
+    }
+    
+    @Test
+    public void testWithDeveloperNotInProject() throws Exception {
+
     }
 }
