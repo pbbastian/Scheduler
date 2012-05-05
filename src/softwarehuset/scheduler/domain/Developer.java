@@ -56,6 +56,16 @@ public class Developer {
 		return projects;
 	}
 
+    public List<Project> getProjects(Status status) {
+        List<Project> projectsWithStatus = new ArrayList<Project>();
+        for (Project project : projects) {
+            if (project.getStatus().equals(status)) {
+                projectsWithStatus.add(project);
+            }
+        }
+        return projectsWithStatus;
+    }
+
 	public List<PrivateActivity> getPrivateActivities() {
 		return privateActivities;
 	}

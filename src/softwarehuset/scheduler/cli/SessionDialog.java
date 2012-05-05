@@ -25,7 +25,7 @@ public class SessionDialog implements Dialog {
                 new Choice("Create a new private activity", new CreatePrivateActivity(scheduler, session, this)),
                 new Choice("View projects", new ViewProjectsDialog(scheduler, session, this)),
                 new Choice("View private activities", new ViewPrivateActivitiesDialog(scheduler, session, session.getDeveloper(), this)),
-                new Choice("View activities that has been assigned to me", new ViewActivitiesForDeveloper(scheduler, session, this)),
+                new Choice("View activities that has been assigned to me", new ViewAllActivitiesForDeveloperDialog(scheduler, session, this)),
                 new Choice("Log out", previousDialog),
         };
         new ChoiceDialog(choices, "Available actions:", "Select an action: ").display(in, out);

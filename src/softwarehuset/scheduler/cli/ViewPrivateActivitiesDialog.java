@@ -33,7 +33,7 @@ public class ViewPrivateActivitiesDialog implements Dialog {
             Choice[] choices = new Choice[size+1];
             for (int i = 0; i < size; i++) {
                 PrivateActivity activity = developer.getPrivateActivities().get(i);
-                String message = "  W" + activity.getStart().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR)
+                String message = "W" + activity.getStart().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR)
                         + " -> W" + activity.getEnd().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR) + ": " + activity.getDescription();
                 choices[i] = new Choice(message, new RemovePrivateActivityDialog(scheduler, session, activity, this));
             }

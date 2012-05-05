@@ -36,7 +36,8 @@ public class ProjectDialog implements Dialog {
             choices = new Choice[] {
                     new Choice("Create a new activity for this project", new CreateActivityDialog(scheduler, session, project, this)),
                     new Choice("Add a developer", null),
-                    new Choice("View activities", null),
+                    new Choice("View all activities", null),
+                    new Choice("View activities assigned to me", null),
                     new Choice("View developers", null),
                     new Choice("Set the project status", null),
                     new Choice("Remove the project", null),
@@ -44,8 +45,9 @@ public class ProjectDialog implements Dialog {
             };
         } else if (project.getAuthor().equals(session.getDeveloper())) {
             choices = new Choice[] {
-                    new Choice("View activities in this project", null),
-                    new Choice("View developers in this project", null),
+                    new Choice("View all activities", null),
+                    new Choice("View activities assigned to me", null),
+                    new Choice("View developers", null),
                     new Choice("Remove the project", null),
                     new Choice("Go back", previousDialog),
             };
