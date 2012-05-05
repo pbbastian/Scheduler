@@ -4,7 +4,6 @@ import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.exceptions.AlreadyRegisteredProjectException;
 import softwarehuset.scheduler.exceptions.ArgumentException;
 import softwarehuset.scheduler.exceptions.NonProjectLeaderException;
 import softwarehuset.scheduler.exceptions.NonRegisteredProjectException;
@@ -29,8 +28,8 @@ public class CreateActivityDialog implements Dialog {
 
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         boolean validActivity = false;
-        Activity activity = null;
         while(!validActivity) {
             out.print("Enter a description for the activity: ");
             String description = new Scanner(in).nextLine();
@@ -40,10 +39,10 @@ public class CreateActivityDialog implements Dialog {
             out.print("Enter an end week and year (separated by a space) for the activity: ");
             GregorianCalendar end = Scheduler.getWeek(scanner.nextInt(), scanner.nextInt());
             try {
-                activity = new Activity(description, start, end);
-                session.addActivityToProject(activity, project);
+                session.addActivityToProject(new Activity(description, start, end), project);
                 validActivity = true;
                 out.println("You have successfully created a new activity with the description '" + description + "'!");
+                previousDialog.display(in, out);
             } catch (NonRegisteredProjectException e) {
                 e.printStackTrace();  // This should not be possible
             } catch (NonProjectLeaderException e) {

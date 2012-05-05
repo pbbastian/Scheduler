@@ -23,6 +23,7 @@ public class CreateProjectDialog implements Dialog {
     
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         boolean validProject = false;
         Project project = null;
         while(!validProject) {
@@ -56,7 +57,7 @@ public class CreateProjectDialog implements Dialog {
             } else {
                 try {
                     session.chooseProjectLeader(project, projectLeader);
-                    validProject = true;
+                    validProjectLeader = true;
                     out.println("You have successfully chosen '" + projectLeader.getName()
                             + "' as the project leader for the project '" + project.getName() + "'!");
                     previousDialog.display(in, out);

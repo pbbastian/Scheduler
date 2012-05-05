@@ -19,6 +19,7 @@ public class RegisterDialog implements Dialog {
     
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         boolean validRegistration = false;
         while(!validRegistration) {
             System.out.print("Enter your name: ");

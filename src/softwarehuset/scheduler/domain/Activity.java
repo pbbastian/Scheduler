@@ -7,17 +7,17 @@ import java.util.List;
 public class Activity {
 	private String id;
 	private String description;
-	private Calendar creationDate;
-	private Calendar dueDate;
+	private Calendar start;
+	private Calendar end;
 	private Project project;
 	private List<Developer> developers;
 	private Developer author;
     private Status status;
 
-    public Activity(String description, Calendar creationDate, Calendar dueDate) {
+    public Activity(String description, Calendar start, Calendar end) {
 		this.description = description;
-		this.creationDate = creationDate;
-		this.dueDate = dueDate;
+		this.start = start;
+		this.end = end;
 		this.developers = new ArrayList<Developer>();
         this.status = Status.ONGOING;
 	}
@@ -38,20 +38,20 @@ public class Activity {
 		this.description = description;
 	}
 
-	public Calendar getCreationDate() {
-		return this.creationDate;
+	public Calendar getStart() {
+		return this.start;
 	}
 
-	public void setCreationDate(Calendar createdDate) {
-		this.creationDate = createdDate;
+	public void setStart(Calendar createdDate) {
+		this.start = createdDate;
 	}
 
-	public Calendar getDueDate() {
-		return this.dueDate;
+	public Calendar getEnd() {
+		return this.end;
 	}
 
-	public void setDueDate(Calendar dueDate) {
-		this.dueDate = dueDate;
+	public void setEnd(Calendar end) {
+		this.end = end;
 	}
 
 	public Project getProject() {

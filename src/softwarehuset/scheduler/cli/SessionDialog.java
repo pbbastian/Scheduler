@@ -19,11 +19,13 @@ public class SessionDialog implements Dialog {
 
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         Choice[] choices = new Choice[] {
                 new Choice("Create a new project and choose a project leader for it", new CreateProjectDialog(scheduler, session, this)),
-                new Choice("Create a new private activity", null),
-                new Choice("Select a project", new SelectProjectDialog(scheduler, session, this)),
-                new Choice("View activities that has been assigned to me", null),
+                new Choice("Create a new private activity", new CreatePrivateActivity(scheduler, session, this)),
+                new Choice("View projects", new ViewProjectsDialog(scheduler, session, this)),
+                new Choice("View private activities", new ViewPrivateActivitiesDialog(scheduler, session, session.getDeveloper(), this)),
+                new Choice("View activities that has been assigned to me", new ViewActivitiesForDeveloper(scheduler, session, this)),
                 new Choice("Log out", previousDialog),
         };
         new ChoiceDialog(choices, "Available actions:", "Select an action: ").display(in, out);

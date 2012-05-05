@@ -20,6 +20,7 @@ public class LogInDialog implements Dialog {
     
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         boolean validLogin = false;
         while(!validLogin) {
             out.print("Enter your name: ");

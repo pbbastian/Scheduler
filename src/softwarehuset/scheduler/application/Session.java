@@ -59,10 +59,10 @@ public class Session {
         if (activity.getDescription() == null) {
             throw new NullPointerException("Activity description cannot be null");
         }
-        if (activity.getCreationDate() == null) {
+        if (activity.getStart() == null) {
             throw new NullPointerException("Activity creation date cannot be null");
         }
-        if (activity.getDueDate() == null) {
+        if (activity.getEnd() == null) {
             throw new NullPointerException("Activity due date cannot be null");
         }
         if (activity.getDescription().length() < 1) {
@@ -161,5 +161,9 @@ public class Session {
             throw new ArgumentException(privateActivity.getDescription(), "Private activity description must have a length of minimum 1");
         }
         developer.addPrivateActivity(privateActivity);
+    }
+
+    public void removePrivateActivity(PrivateActivity activity) {
+        developer.getPrivateActivities().remove(activity);
     }
 }

@@ -13,6 +13,7 @@ public class ExitDialog implements Dialog {
 
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         out.print("Are you sure you want to exit the application? ");
         if (new Scanner(in).next().equalsIgnoreCase("yes")) {
             System.exit(0);

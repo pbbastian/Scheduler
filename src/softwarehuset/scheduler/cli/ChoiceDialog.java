@@ -31,6 +31,8 @@ public class ChoiceDialog implements Dialog {
             }
         }
 
-        choices[choice].getDialog().display(in, out);
+        if (!(choices[choice].getDialog() instanceof ContinueDialog)) {
+            choices[choice].getDialog().display(in, out);
+        }
     }
 }

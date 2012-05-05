@@ -14,6 +14,7 @@ public class ApplicationDialog implements Dialog {
 
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         ChoiceDialog choiceDialog1 = new ChoiceDialog(new Choice[]{
                 new Choice("Log in", new LogInDialog(scheduler, this)),
                 new Choice("Register as a new developer", new RegisterDialog(scheduler, this)),
