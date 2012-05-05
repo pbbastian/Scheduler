@@ -22,20 +22,19 @@ public class LogInDialog implements Dialog {
     public void display(InputStream in, PrintStream out) {
         out.println();
         boolean validLogin = false;
-        while(!validLogin) {
-            out.print("Enter your name: ");
-            String name = new Scanner(in).nextLine();
-            out.print("Enter your PIN: ");
-            String pin = new Scanner(in).nextLine();
-            try {
-                session = scheduler.logIn(name, pin);
-                validLogin = true;
-                out.println("You are now logged in as '" + name + "'!");
-                new SessionDialog(scheduler, session, previousDialog).display(in, out);
-            } catch (IncorrectCredentialsException e) {
-                out.println("Invalid name and PIN combination, please try again.");
-            }
+        out.print("Enter your name: ");
+        String name = new Scanner(in).nextLine();
+        out.print("Enter your PIN: ");
+        String pin = new Scanner(in).nextLine();
+        try {
+            session = scheduler.logIn(name, pin);
+            validLogin = true;
+            out.println("You are now logged in as '" + name + "'!");
+            
+        } catch (IncorrectCredentialsException e) {
+            out.println("Invalid name and PIN combination, please try again.");
         }
+        new SessionDialog(scheduler, session, previousDialog).display(in, out);
     }
 
     public Session getSession() {
