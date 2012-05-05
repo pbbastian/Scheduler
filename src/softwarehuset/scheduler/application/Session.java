@@ -4,6 +4,9 @@ import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.*;
 import softwarehuset.scheduler.domain.PrivateActivity;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -166,4 +169,50 @@ public class Session {
     public void removePrivateActivity(PrivateActivity activity) {
         developer.getPrivateActivities().remove(activity);
     }
+
+	public List<Developer> getAvailableDevelopers(int maxPrivate, int maxProject) {
+		List<Developer> availableDevelopers = new ArrayList<Developer>();
+		for (Developer developer : scheduler.getDevelopers()) {
+			if (developer != this.developer) {
+				if (developer.getPrivateActivities().size() <= maxPrivate && developer.getCurrentActivities().size() <= maxProject) {
+					availableDevelopers.add(developer);
+				}
+			}
+			
+		}
+		return availableDevelopers;
+	}
+
+	public double getTimeSpentOnActivities(Project project) throws InsufficientRightsException {
+		if (!this.developer.equals(project.getProjectLeader())) {
+			throw new InsufficientRightsException("Only a project leader is allowed to do this.");
+		}
+		double timeSpent = 0;
+		for (Activity projectActivity : project.getActivities()) {
+			timeSpent = timeSpent + projectActivity.getTimeSpent();
+		}
+		return timeSpent;
+	}
+
+	public void spendTimeOnProjectActivity(Project project, Activity activity, double time) throws Exception {
+		if (!project.getDevelopers().contains(developer)) {
+			throw new InsufficientRightsException("Only developers associated with this project are allowed to spend time.");
+		}
+		activity.spendTime(time);
+	}
+	
+	public void generateProjectReport(Project project) throws IOException, InsufficientRightsException {
+		String projectName = project.getName();
+		int nrOfDevs = project.getDevelopers().size();
+		int nrOfActivities = project.getActivities().size();
+		double totalTimeSpent = getTimeSpentOnActivities(project);
+		double timePerDev = totalTimeSpent/nrOfDevs;
+		double timePerActivity = totalTimeSpent/nrOfActivities;
+		
+		
+		String textOut = "<!DOCTYPE html PUBLIC >\n<head>\n<title>\nProject Report</title>\n</head>\n<body>\n<h1>Project Report : "+projectName+"</h1>\n<p>TOTAL TIME SPENT: "+totalTimeSpent+"<br>\nAvg. time spent by a Developer: "+timePerDev+"<br>\nAvg. time spent on an Activity: "+timePerActivity+"</p>\n</html>\n";
+    	BufferedWriter out = new BufferedWriter(new FileWriter(projectName+"_report.html"));
+    	out.write(textOut);
+    	out.close();
+	}
 }
