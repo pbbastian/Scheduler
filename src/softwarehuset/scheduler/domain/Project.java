@@ -80,6 +80,16 @@ public class Project {
 		return activities;
 	}
 
+    public List<Activity> getActivities(Status status) {
+        List<Activity> activitiesWithStatus = new ArrayList<Activity>();
+        for (Activity activity : activities) {
+            if (activity.getStatus().equals(status)) {
+                activitiesWithStatus.add(activity);
+            }
+        }
+        return activitiesWithStatus;
+    }
+
     public void removeActivity(Activity activity) {
         activities.remove(activity);
         for (Developer developer : developers) {

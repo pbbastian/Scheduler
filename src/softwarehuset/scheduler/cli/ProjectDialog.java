@@ -51,6 +51,13 @@ public class ProjectDialog implements Dialog {
                     new Choice("Remove the project", null),
                     new Choice("Go back", previousDialog),
             };
+        } else {
+            choices = new Choice[] {
+                    new Choice("View all activities", null),
+                    new Choice("View activities assigned to me", null),
+                    new Choice("View developers", null),
+                    new Choice("Go back", previousDialog),
+            };
         }
         new ChoiceDialog(choices, "Available actions:", "Select an action: ").display(in, out);
     }
