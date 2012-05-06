@@ -8,9 +8,7 @@ import softwarehuset.scheduler.domain.Project;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 public class ViewAllActivitiesForProjectDialog implements Dialog {
     private Scheduler scheduler;
@@ -39,7 +37,6 @@ public class ViewAllActivitiesForProjectDialog implements Dialog {
                 for (Developer assignedDeveloper : activity.getDevelopers()) {
                     message += assignedDeveloper.getName() + ", ";
                 }
-                message = message.substring(0, message.length()-2);
                 out.println(message);
             }
         }

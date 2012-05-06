@@ -3,7 +3,6 @@ package softwarehuset.scheduler.cli;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.domain.Status;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -33,9 +32,8 @@ public class ProjectDialog implements Dialog {
                     new Choice("Create a new activity for this project", new CreateActivityDialog(scheduler, session, project, this)),
                     new Choice("Add a developer", new AddDeveloperDialog(scheduler, session, project, this)),
                     new Choice("Remove a developer", new RemoveDeveloperFromProjectDialog(scheduler, session, project, this)),
-                    new Choice("View activities assigned to me", new ActivitiesAssignedToMeInProjectDialog(scheduler, session, project, this)),
-                    new Choice("View all activities", new ViewAllActivitiesForProjectDialog(scheduler, session, project, this)),
-                    new Choice("Set the status on an activity", new SetActivityStatusDialog(scheduler, session, project, this)),
+                    new Choice("View activities assigned to me", new ActivitiesAssignedToMeInProjectDialog(session, project, this)),
+                    new Choice("View all activities", new ProjectActivitiesDialog(session, project, this)),
                     new Choice("View developers", null),
                     new Choice("Set the project status", new SetProjectStatusDialog(scheduler, session, project, this)),
                     new Choice("Remove the project", new RemoveProjectDialog(scheduler, session, project, previousDialog)),

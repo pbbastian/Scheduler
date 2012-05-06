@@ -28,7 +28,6 @@ public class ViewPrivateActivitiesDialog implements Dialog {
             out.println("\nYou don't have any private activities.");
             previousDialog.display(in, out);
         } else {
-            out.println("\nPrivate activities:");
             int size = developer.getPrivateActivities().size();
             Choice[] choices = new Choice[size+1];
             for (int i = 0; i < size; i++) {

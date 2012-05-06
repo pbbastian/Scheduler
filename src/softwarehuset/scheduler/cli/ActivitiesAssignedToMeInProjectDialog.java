@@ -1,9 +1,7 @@
 package softwarehuset.scheduler.cli;
 
-import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
-import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
 
 import java.io.InputStream;
@@ -13,13 +11,11 @@ import java.util.Calendar;
 import java.util.List;
 
 public class ActivitiesAssignedToMeInProjectDialog implements Dialog {
-    private Scheduler scheduler;
     private Session session;
     private Project project;
     private Dialog previousDialog;
 
-    public ActivitiesAssignedToMeInProjectDialog(Scheduler scheduler, Session session, Project project, Dialog previousDialog) {
-        this.scheduler = scheduler;
+    public ActivitiesAssignedToMeInProjectDialog(Session session, Project project, Dialog previousDialog) {
         this.session = session;
         this.project = project;
         this.previousDialog = previousDialog;
@@ -34,21 +30,15 @@ public class ActivitiesAssignedToMeInProjectDialog implements Dialog {
                 activitiesAssignedToMe.add(activity);
             }
         }
-        if (activitiesAssignedToMe.isEmpty()) {
-            out.println("  None.");
-        } else {
-            for (Activity activity : activitiesAssignedToMe) {
-                String message = "  W" + activity.getStart().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR)
-                        + " -> W" + activity.getEnd().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR) + ": "
-                        + activity.getDescription() + " (" + project.getStatus().toString() + ")\n"
-                        + "    Developers assigned to the activity: ";
-                for (Developer assignedDeveloper : activity.getDevelopers()) {
-                    message += assignedDeveloper.getName() + ", ";
-                }
-                message = message.substring(0, message.length()-2);
-                out.println(message);
-            }
+        int size = activitiesAssignedToMe.size();
+        Choice[] choices = new Choice[size+1];
+        for (int i = 0; i < size; i++) {
+            Activity activity = activitiesAssignedToMe.get(i);
+            String message = "W" + activity.getStart().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR)
+                    + " -> W" + activity.getEnd().get(Calendar.WEEK_OF_YEAR) + " Y" + activity.getStart().get(Calendar.YEAR) + ": " + activity.getDescription();
+            choices[i] = new Choice(message, new ProjectActivityDialog(session, activity, this));
         }
-        previousDialog.display(in, out);
+        choices[size] = new Choice("Go back", previousDialog);
+        new ChoiceDialog(choices, "Activities in this project:", "Select an activity: ").display(in, out);
     }
 }

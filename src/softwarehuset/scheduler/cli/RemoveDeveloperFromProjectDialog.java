@@ -32,7 +32,7 @@ public class RemoveDeveloperFromProjectDialog implements Dialog {
         }
         choiceList.add(new Choice("Go back", previousDialog));
         Choice[] choices = choiceList.toArray(new Choice[choiceList.size()]);
-        new ChoiceDialog(choices, "Developers in project:", "Select a developer you want to remove from the project");
+        new ChoiceDialog(choices, "Developers in project:", "Select a developer you want to remove from the project").display(in, out);
     }
 
     public class InnerDialog implements Dialog {
