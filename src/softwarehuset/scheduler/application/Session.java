@@ -115,7 +115,7 @@ public class Session {
                 ongoingOrPausedActivities.add(activity);
             }
         }
-        if (!ongoingOrPausedActivities.isEmpty()) {
+        if (status.equals(Status.COMPLETED) && !ongoingOrPausedActivities.isEmpty()) {
             throw new OngoingOrPausedActivitiesException(ongoingOrPausedActivities,
                     "A project can't be marked as complete if any activities is marked as ongoing or paused");
         }

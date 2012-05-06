@@ -32,6 +32,7 @@ public class RemoveProjectDialog implements Dialog {
         // If we get here, the answer is "Yes"
         try {
             session.removeProject(project);
+            out.println("You have successfully removed the project named '" + project.getName() + "'!");
         } catch (InsufficientRightsException e) {
             e.printStackTrace();  // This shouldn't be possible
         }
