@@ -215,4 +215,14 @@ public class Session {
     	out.write(textOut);
     	out.close();
 	}
+
+    public void requestAssistance(Activity activity, Developer assistingDeveloper) throws InsufficientRightsException, NonRegisteredDeveloperException {
+        if (!this.developer.getCurrentActivities().contains(activity)) {
+            throw new InsufficientRightsException("Only developers assigned to the activity can request assistance with it");
+        }
+        if (!scheduler.getDevelopers().contains(assistingDeveloper)) {
+            throw new NonRegisteredDeveloperException(assistingDeveloper, "Assisting developer must be registered in the system");
+        }
+        assistingDeveloper.addActivity(activity);
+    }
 }

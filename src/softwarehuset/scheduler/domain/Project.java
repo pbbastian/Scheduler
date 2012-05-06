@@ -92,7 +92,7 @@ public class Project {
 
     public void removeActivity(Activity activity) {
         activities.remove(activity);
-        for (Developer developer : developers) {
+        for (Developer developer : activity.getDevelopers()) {
             developer.getCurrentActivities().remove(activity);
         }
     }
