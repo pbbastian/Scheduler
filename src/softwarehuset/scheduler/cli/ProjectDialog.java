@@ -31,10 +31,9 @@ public class ProjectDialog implements Dialog {
             choices = new Choice[]{
                     new Choice("Create a new activity for this project", new CreateActivityDialog(scheduler, session, project, this)),
                     new Choice("Add a developer", new AddDeveloperDialog(scheduler, session, project, this)),
-                    new Choice("Remove a developer", new RemoveDeveloperFromProjectDialog(scheduler, session, project, this)),
                     new Choice("View activities assigned to me", new ActivitiesAssignedToMeInProjectDialog(session, project, this)),
                     new Choice("View all activities", new ProjectActivitiesDialog(session, project, this)),
-                    new Choice("View developers", null),
+                    new Choice("View developers", new ProjectDevelopersDialog(session, project, this)),
                     new Choice("Set the project status", new SetProjectStatusDialog(scheduler, session, project, this)),
                     new Choice("Remove the project", new RemoveProjectDialog(scheduler, session, project, previousDialog)),
                     new Choice("Go back", previousDialog),

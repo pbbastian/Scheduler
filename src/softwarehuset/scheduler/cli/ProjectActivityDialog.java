@@ -29,9 +29,9 @@ public class ProjectActivityDialog implements Dialog {
         if (activity.getDevelopers().isEmpty()) {
             out.print("None.");
         } else {
-            out.print(activity.getDevelopers().get(0));
+            out.print(activity.getDevelopers().get(0).getName());
             for (int i = 1; i < activity.getDevelopers().size(); i++) {
-                out.print(", " + activity.getDevelopers().get(i));
+                out.print(", " + activity.getDevelopers().get(i).getName());
             }
         }
         out.println();
@@ -43,7 +43,7 @@ public class ProjectActivityDialog implements Dialog {
         if (activity.getProject().getProjectLeader().equals(session.getDeveloper())) {
             choiceList.add(new Choice("Assign a developer to this activity", new AssignActivityToDeveloperDialog.FromActivityDialog(session, activity, this)));
             if (!activity.getDevelopers().isEmpty()) {
-                choiceList.add(new Choice("Unassign a developer from this activity", null));
+                choiceList.add(new Choice("Unassign a developer from this activity", new UnassignActivityFromDeveloperDialog.FromActivityDialog(session, activity, this)));
             }
             choiceList.add(new Choice("Remove this activity", new RemoveActivityDialog(session, activity, this)));
         }
