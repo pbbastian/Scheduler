@@ -13,7 +13,6 @@ public class Activity {
 	private List<Developer> developers;
 	private Developer author;
     private Status status;
-    private double timeSpent;
 
     public Activity(String description, Calendar start, Calendar end) {
 		this.description = description;
@@ -82,16 +81,4 @@ public class Activity {
     public void setStatus(Status status) {
         this.status = status;
     }
-
-	public double getTimeSpent() {
-		return this.timeSpent;
-	}
-	
-	public void spendTime(double time) {
-		this.timeSpent = this.timeSpent + time;
-	}
-	
-	public void setTimeSpent(double time) {
-		this.timeSpent = time;
-	}
 }

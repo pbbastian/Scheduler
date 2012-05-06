@@ -3,11 +3,13 @@ package softwarehuset.scheduler.application;
 import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.*;
 import softwarehuset.scheduler.domain.PrivateActivity;
+import softwarehuset.scheduler.domain.ActivityTimePeriod;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -115,7 +117,7 @@ public class Session {
                 ongoingOrPausedActivities.add(activity);
             }
         }
-        if (!ongoingOrPausedActivities.isEmpty()) {
+        if (status.equals(Status.COMPLETED) && !ongoingOrPausedActivities.isEmpty()) {
             throw new OngoingOrPausedActivitiesException(ongoingOrPausedActivities,
                     "A project can't be marked as complete if any activities is marked as ongoing or paused");
         }
@@ -187,10 +189,12 @@ public class Session {
 		if (!this.developer.equals(project.getProjectLeader())) {
 			throw new InsufficientRightsException("Only a project leader is allowed to do this.");
 		}
-		double timeSpent = 0;
-		for (Activity projectActivity : project.getActivities()) {
-			timeSpent = timeSpent + projectActivity.getTimeSpent();
-		}
+		int timeSpent = 0;
+		for (ActivityTimePeriod timePeriod : developer.getActivityTimePeriods()) {
+            if (timePeriod.getActivity().getProject().equals(project)) {
+                timeSpent += 1 + timePeriod.getToHour() - timePeriod.getFromHour();
+            }
+        }
 		return timeSpent;
 	}
 
@@ -198,7 +202,6 @@ public class Session {
 		if (!project.getDevelopers().contains(developer)) {
 			throw new InsufficientRightsException("Only developers associated with this project are allowed to spend time.");
 		}
-		activity.spendTime(time);
 	}
 	
 	public void generateProjectReport(Project project) throws IOException, InsufficientRightsException {
@@ -215,4 +218,45 @@ public class Session {
     	out.write(textOut);
     	out.close();
 	}
+
+    public void requestAssistance(Activity activity, Developer assistingDeveloper) throws InsufficientRightsException, NonRegisteredDeveloperException {
+        if (!this.developer.getCurrentActivities().contains(activity)) {
+            throw new InsufficientRightsException("Only developers assigned to the activity can request assistance with it");
+        }
+        if (!scheduler.getDevelopers().contains(assistingDeveloper)) {
+            throw new NonRegisteredDeveloperException(assistingDeveloper, "Assisting developer must be registered in the system");
+        }
+        assistingDeveloper.addActivity(activity);
+    }
+
+    public void spendTimeOnProjectActivity(ActivityTimePeriod timePeriod) throws InsufficientRightsException, ArgumentException {
+        if (!developer.getCurrentActivities().contains(timePeriod.getActivity())) {
+            throw new InsufficientRightsException("Only a developer assigned to the activity (or one assisting) can spend time on it.");
+        }
+        if (timePeriod.getFromHour() < 0 || !(timePeriod.getFromHour() < timePeriod.getToHour())) {
+            throw new ArgumentException(new Integer(timePeriod.getFromHour()), "Start hour must be at least 0 and less than the end hour");
+        }
+        if (timePeriod.getToHour() > 23) {
+            throw new ArgumentException(new Integer(timePeriod.getToHour()), "End hour must be at at most 23");
+        }
+        timePeriod.setDate(GregorianCalendar.getInstance());
+        developer.getActivityTimePeriods().add(timePeriod);
+    }
+
+    public void removeActivityTimePeriod(ActivityTimePeriod timePeriod) throws InsufficientRightsException {
+        if (!developer.getActivityTimePeriods().contains(timePeriod)) {
+            throw new InsufficientRightsException("Only the developer that spend the time can remove it");
+        }
+        developer.getActivityTimePeriods().remove(timePeriod);
+    }
+
+    public boolean[] getUnregisteredHours() {
+        boolean[] unregisteredHours = new boolean[24];
+        for (ActivityTimePeriod timePeriod : developer.getActivityTimePeriods()) {
+            for (int i = timePeriod.getFromHour(); i <= timePeriod.getToHour(); i++) {
+                unregisteredHours[i] = true;
+            }
+        }
+        return unregisteredHours;
+    }
 }

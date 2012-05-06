@@ -1,7 +1,9 @@
 package softwarehuset.scheduler.application;
 
+import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
+import softwarehuset.scheduler.domain.Status;
 import softwarehuset.scheduler.exceptions.ArgumentException;
 import softwarehuset.scheduler.exceptions.IncorrectCredentialsException;
 
@@ -67,4 +69,14 @@ public class Scheduler {
 	public List<Project> getProjects() {
 		return projects;
 	}
+
+    public List<Activity> getRemainingActivities(Project project) {
+        List<Activity> remainingActivities = new ArrayList<Activity>();
+        for (Activity activity : project.getActivities()) {
+            if (!activity.getStatus().equals(Status.COMPLETED) && !activity.getStatus().equals(Status.CANCELED)) {
+                remainingActivities.add(activity);
+            }
+        }
+        return remainingActivities;
+    }
 }

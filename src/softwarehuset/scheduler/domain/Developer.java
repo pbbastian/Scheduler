@@ -10,13 +10,15 @@ public class Developer {
 	private List<Project> projects;
 	private List<PrivateActivity> privateActivities;
 	private List<Activity> currentActivities;
-	
-	public Developer(String name, String pin) {
+    private List<ActivityTimePeriod> activityTimePeriods;
+
+    public Developer(String name, String pin) {
 		this.name = name;
 		this.pin = pin;
 		this.projects = new ArrayList<Project>();
 		this.privateActivities = new ArrayList<PrivateActivity>();
 		this.currentActivities = new ArrayList<Activity>();
+        this.activityTimePeriods = new ArrayList<ActivityTimePeriod>();
 	}
     
     public void addActivity(Activity activity) {
@@ -82,5 +84,10 @@ public class Developer {
     public void addPrivateActivity(PrivateActivity privateActivity) {
         privateActivity.setDeveloper(this);
         privateActivities.add(privateActivity);
+    }
+
+
+    public List<ActivityTimePeriod> getActivityTimePeriods() {
+        return activityTimePeriods;
     }
 }

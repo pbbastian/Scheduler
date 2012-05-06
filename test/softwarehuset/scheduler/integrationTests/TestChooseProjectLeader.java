@@ -38,18 +38,21 @@ public class TestChooseProjectLeader {
         assertTrue(project.getDevelopers().contains(developer2));
 	}
 	
-//	@Test
-//	public void testAsProjectDeveloper() throws Exception {
-//		DeveloperSession developerSession = scheduler.logIn(developer1.getName(), developer1.getPin());
-//		Project project = new Project("Peters Projekt");
-//		developerSession.registerProject(project);
-//		ProjectSession projectSession = developerSession.getProjectSession(project);
-//		projectSession.chooseProjectLeader(developer1);
-//		session.addDeveloper(developer2);
-//		
-//		developerSession = scheduler.logIn(developer2.getName(), developer2.getPin());
-//		projectSession.chooseProjectLeader(developer2);
-//	}
+	@Test
+	public void testAsProjectDeveloper() throws Exception {
+        Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
+        Project project = new Project("Peters Projekt");
+        session.registerProject(project);
+        session.chooseProjectLeader(project, developer1);
+        session.addDeveloperToProject(developer2, project);
+
+        Session session2 = scheduler.logIn(developer2.getName(), developer2.getPin());
+        session2.chooseProjectLeader(project, developer2);
+
+        assertEquals(developer2, project.getProjectLeader());
+        assertTrue(developer2.getProjects().contains(project));
+        assertTrue(project.getDevelopers().contains(developer2));
+	}
 	
 	@Test
 	public void testAsNonProjectDeveloperOrAuthor() throws Exception {
