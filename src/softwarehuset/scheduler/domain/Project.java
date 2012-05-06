@@ -25,8 +25,8 @@ public class Project {
 	}
 	
 	public void addDeveloper(Developer developer) {
-		developer.getProjects().add(this);
 		developers.add(developer);
+		developer.getProjects().add(this);
 	}
 
 	public String getId() {
