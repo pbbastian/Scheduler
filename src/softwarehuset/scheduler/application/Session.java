@@ -185,30 +185,26 @@ public class Session {
 		return availableDevelopers;
 	}
 
-	public double getTimeSpentOnActivities(Project project) throws InsufficientRightsException {
+	public int getTimeSpentOnActivities(Project project) throws InsufficientRightsException {
 		if (!this.developer.equals(project.getProjectLeader())) {
 			throw new InsufficientRightsException("Only a project leader is allowed to do this.");
 		}
 		int timeSpent = 0;
-		for (ActivityTimePeriod timePeriod : developer.getActivityTimePeriods()) {
-            if (timePeriod.getActivity().getProject().equals(project)) {
-                timeSpent += 1 + timePeriod.getToHour() - timePeriod.getFromHour();
+        for (Developer developer : project.getDevelopers()) {
+            for (ActivityTimePeriod timePeriod : developer.getActivityTimePeriods()) {
+                if (timePeriod.getActivity().getProject().equals(project)) {
+                    timeSpent += 1 + timePeriod.getToHour() - timePeriod.getFromHour();
+                }
             }
         }
 		return timeSpent;
-	}
-
-	public void spendTimeOnProjectActivity(Project project, Activity activity, double time) throws Exception {
-		if (!project.getDevelopers().contains(developer)) {
-			throw new InsufficientRightsException("Only developers associated with this project are allowed to spend time.");
-		}
 	}
 	
 	public void generateProjectReport(Project project) throws IOException, InsufficientRightsException {
 		String projectName = project.getName();
 		int nrOfDevs = project.getDevelopers().size();
 		int nrOfActivities = project.getActivities().size();
-		double totalTimeSpent = getTimeSpentOnActivities(project);
+		int totalTimeSpent = getTimeSpentOnActivities(project);
 		double timePerDev = totalTimeSpent/nrOfDevs;
 		double timePerActivity = totalTimeSpent/nrOfActivities;
 		

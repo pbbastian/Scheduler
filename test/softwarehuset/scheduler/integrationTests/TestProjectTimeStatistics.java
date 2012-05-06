@@ -5,6 +5,7 @@ import org.junit.Test;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
+import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
 import softwarehuset.scheduler.exceptions.InsufficientRightsException;
@@ -42,13 +43,14 @@ public class TestProjectTimeStatistics {
         activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
-        developerSession.spendTimeOnProjectActivity(project, activity, 20);
-        developerSession.spendTimeOnProjectActivity(project, activity, 25.3);
+        projectLeaderSession.assignActivityToDeveloper(activity, developer);
+        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 7, 16));
+        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 14, 16));
     }
     @Test
     public void timeSpentOnProject() throws Exception{
     	double time = projectLeaderSession.getTimeSpentOnActivities(project);
-    	assertTrue(time == 45.3);
+    	assertTrue(time == 13);
     }
     
     @Test

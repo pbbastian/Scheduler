@@ -13,6 +13,7 @@ import softwarehuset.scheduler.application.DeveloperNotInProjectException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
+import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
 import softwarehuset.scheduler.exceptions.InsufficientRightsException;
@@ -50,7 +51,8 @@ public class TestGenerateProjectReport {
         activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
-        developerSession.spendTimeOnProjectActivity(project, activity, 45.3);
+        projectLeaderSession.assignActivityToDeveloper(activity, developer);
+        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 8, 17));
     }
     
     @Test
@@ -61,7 +63,7 @@ public class TestGenerateProjectReport {
     	
     	projectLeaderSession.generateProjectReport(project);
     	
-    	String expectedReport = "<!DOCTYPE html PUBLIC >\n<head>\n<title>\nProject Report</title>\n</head>\n<body>\n<h1>Project Report : "+project.getName()+"</h1>\n<p>TOTAL TIME SPENT: 45.3<br>\nAvg. time spent by a Developer: 22.65<br>\nAvg. time spent on an Activity: 45.3</p>\n</html>\n";
+    	String expectedReport = "<!DOCTYPE html PUBLIC >\n<head>\n<title>\nProject Report</title>\n</head>\n<body>\n<h1>Project Report : "+project.getName()+"</h1>\n<p>TOTAL TIME SPENT: 10<br>\nAvg. time spent by a Developer: 5.0<br>\nAvg. time spent on an Activity: 10.0</p>\n</html>\n";
     	BufferedReader in = new BufferedReader(new FileReader(project.getName()+"_report.html"));
     	String textIn = "";
         String str;
