@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class TestProjectTimeStatistics {
+public class TestProjectTimeStatistics { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -26,7 +26,7 @@ public class TestProjectTimeStatistics {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -48,13 +48,13 @@ public class TestProjectTimeStatistics {
         developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 14, 16));
     }
     @Test
-    public void timeSpentOnProject() throws Exception{
+    public void timeSpentOnProject() throws Exception { // Kristian
     	double time = projectLeaderSession.getTimeSpentOnActivities(project);
     	assertTrue(time == 13);
     }
     
     @Test
-    public void timeSpentOnProjectNotProjectLeader() throws Exception{
+    public void timeSpentOnProjectNotProjectLeader() throws Exception { // Kristian
     	try {
     		developerSession.getTimeSpentOnActivities(project);
             fail("Expected InsufficientRightsException");
@@ -64,7 +64,7 @@ public class TestProjectTimeStatistics {
     }
     
     @Test
-    public void timeSpentOnProjectNullProject() throws Exception{
+    public void timeSpentOnProjectNullProject() throws Exception { // Kristian
     	try {
     		projectLeaderSession.getTimeSpentOnActivities(null);
             fail("NullPointerException was expected, never came");

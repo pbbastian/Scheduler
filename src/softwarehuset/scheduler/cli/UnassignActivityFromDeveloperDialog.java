@@ -1,6 +1,6 @@
 package softwarehuset.scheduler.cli;
 
-import softwarehuset.scheduler.application.ActivityNotAssignedToDeveloperException;
+import softwarehuset.scheduler.exceptions.ActivityNotAssignedToDeveloperException;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.Developer;
@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
 
-public class UnassignActivityFromDeveloperDialog implements Dialog {
+public class UnassignActivityFromDeveloperDialog implements Dialog { // Kristian
     private Session session;
     private Developer developer;
     private Activity activity;

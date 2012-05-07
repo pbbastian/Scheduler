@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class Activity {
+public class Activity { // Peter
 	private String id;
 	private String description;
 	private Calendar start;

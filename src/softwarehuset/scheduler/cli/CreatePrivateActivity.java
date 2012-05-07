@@ -15,7 +15,7 @@ public class CreatePrivateActivity implements Dialog {
     private Session session;
     private Dialog previousDialog;
 
-    public CreatePrivateActivity(Scheduler scheduler, Session session, Dialog previousDialog) {
+    public CreatePrivateActivity(Scheduler scheduler, Session session, Dialog previousDialog) { // Kristian
         this.scheduler = scheduler;
         this.session = session;
         this.previousDialog = previousDialog;

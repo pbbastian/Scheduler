@@ -8,7 +8,7 @@ import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.NonProjectLeaderException;
 import softwarehuset.scheduler.exceptions.NonRegisteredDeveloperException;
 
-public class TestAddDeveloperToProject {
+public class TestAddDeveloperToProject { // Kristian
 	Scheduler scheduler;
 	Developer author;
 	Developer projectLeader;
@@ -19,7 +19,7 @@ public class TestAddDeveloperToProject {
 	Project project;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp()  throws Exception { // Kristian
 		scheduler = new Scheduler();
 		author = new Developer("Peter Bay Bastian", "12345");
 		projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -36,14 +36,14 @@ public class TestAddDeveloperToProject {
 	}
 	
 	@Test
-	public void testAsProjectLeader() throws Exception {
+	public void testAsProjectLeader()  throws Exception { // Kristian
 		projectLeaderSession.addDeveloperToProject(developer, project);
 		assertTrue(project.getDevelopers().contains(developer));
 		assertTrue(developer.getProjects().contains(project));
 	}
 	
 	@Test
-	public void testAsNonProjectLeader() throws Exception {
+	public void testAsNonProjectLeader()  throws Exception { // Kristian
 		try {
 			developerSession.addDeveloperToProject(author, project);
 			fail("Expected NonProjectLeaderException");
@@ -54,7 +54,7 @@ public class TestAddDeveloperToProject {
 	}
 	
 	@Test
-	public void testWithNonRegisteredDeveloper() throws Exception {
+	public void testWithNonRegisteredDeveloper()  throws Exception { // Kristian
 		Developer fakeDeveloper = new Developer("Fake Developer", "12345");
 		try {
 			projectLeaderSession.addDeveloperToProject(fakeDeveloper, project);

@@ -3,7 +3,7 @@ package softwarehuset.scheduler.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Developer {
+public class Developer { // Peter
 	private String id;
 	private String name;
 	private String pin;
@@ -21,7 +21,7 @@ public class Developer {
         this.activityTimePeriods = new ArrayList<ActivityTimePeriod>();
 	}
     
-    public void addActivity(Activity activity) {
+    public void addActivity(Activity activity) { // Kristian
         activity.getDevelopers().add(this);
         currentActivities.add(activity);
     }
@@ -58,7 +58,7 @@ public class Developer {
 		return projects;
 	}
 
-    public List<Project> getProjects(Status status) {
+    public List<Project> getProjects(Status status) { // Peter
         List<Project> projectsWithStatus = new ArrayList<Project>();
         for (Project project : projects) {
             if (project.getStatus().equals(status)) {
@@ -76,12 +76,12 @@ public class Developer {
 		return currentActivities;
 	}
 
-    public void removeActivity(Activity activity) {
+    public void removeActivity(Activity activity) { // Kristian
         activity.getDevelopers().remove(this);
         currentActivities.remove(activity);
     }
 
-    public void addPrivateActivity(PrivateActivity privateActivity) {
+    public void addPrivateActivity(PrivateActivity privateActivity) { // Peter
         privateActivity.setDeveloper(this);
         privateActivities.add(privateActivity);
     }

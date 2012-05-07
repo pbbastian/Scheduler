@@ -7,7 +7,7 @@ import softwarehuset.scheduler.domain.Project;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class ProjectDialog implements Dialog {
+public class ProjectDialog implements Dialog { // Kristian
     private Scheduler scheduler;
     private Session session;
     private Project project;
@@ -40,17 +40,17 @@ public class ProjectDialog implements Dialog {
             };
         } else if (project.getAuthor().equals(session.getDeveloper())) {
             choices = new Choice[]{
-                    new Choice("View all activities", null),
-                    new Choice("View activities assigned to me", null),
-                    new Choice("View developers", null),
+                    new Choice("View all activities", new ProjectActivitiesDialog(session, project, this)),
+                    new Choice("View activities assigned to me", new ActivitiesAssignedToMeInProjectDialog(session, project, this)),
+                    new Choice("View developers", new ProjectDevelopersDialog(session, project, this)),
                     new Choice("Remove the project", new RemoveProjectDialog(scheduler, session, project, previousDialog)),
                     new Choice("Go back", previousDialog),
             };
         } else {
             choices = new Choice[]{
-                    new Choice("View all activities", null),
-                    new Choice("View activities assigned to me", null),
-                    new Choice("View developers", null),
+                    new Choice("View activities assigned to me", new ActivitiesAssignedToMeInProjectDialog(session, project, this)),
+                    new Choice("View all activities", new ProjectActivitiesDialog(session, project, this)),
+                    new Choice("View developers", new ProjectDevelopersDialog(session, project, this)),
                     new Choice("Go back", previousDialog),
             };
         }

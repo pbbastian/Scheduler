@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
-public class ViewProjectsDialog implements Dialog {
+public class ViewProjectsDialog implements Dialog { // Kristian
     private Scheduler scheduler;
     private Session session;
     private Dialog previousDialog;

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ProjectActivityDialog implements Dialog {
+public class ProjectActivityDialog implements Dialog { // Peter
     private Session session;
     private Activity activity;
     private Dialog previousDialog;

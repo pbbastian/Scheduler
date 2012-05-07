@@ -8,25 +8,25 @@ import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.ArgumentException;
 import softwarehuset.scheduler.exceptions.IncorrectCredentialsException;
 
-public class TestLogIn {
+public class TestLogIn { // Peter
 	Scheduler scheduler;
 	Developer developer;
 	
 	@Before
-	public void setUp() throws ArgumentException {
+	public void setUp() throws Exception { // Peter
 		scheduler = new Scheduler();
 		developer = new Developer("Peter Bay Bastian", "12345");
 		scheduler.register(developer);
 	}
 	
 	@Test
-	public void testWithCorrectCredentials() throws IncorrectCredentialsException {
+	public void testWithCorrectCredentials() throws Exception { // Peter
 		Session session = scheduler.logIn(developer.getName(), developer.getPin());
 		assertEquals(developer, session.getDeveloper());
 	}
 	
 	@Test
-	public void logInWithIncorrectPin() {
+	public void logInWithIncorrectPin() throws Exception { // Peter
 		String fakePassword = "nope";
 		try {
 			scheduler.logIn(developer.getName(), fakePassword);
@@ -37,7 +37,7 @@ public class TestLogIn {
 	}
 	
 	@Test
-	public void logInWithIncorrectName() throws IncorrectCredentialsException {
+	public void logInWithIncorrectName() throws Exception { // Peter
 		String fakeName = "nope";
 		try {
 			scheduler.logIn(fakeName, developer.getPin());

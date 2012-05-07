@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class RemovePrivateActivityDialog implements Dialog {
+public class RemovePrivateActivityDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private PrivateActivity privateActivity;

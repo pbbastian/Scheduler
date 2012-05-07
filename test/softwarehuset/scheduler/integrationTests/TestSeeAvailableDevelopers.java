@@ -12,7 +12,7 @@ import softwarehuset.scheduler.domain.Project;
 
 import static org.junit.Assert.assertTrue;
 
-public class TestSeeAvailableDevelopers {
+public class TestSeeAvailableDevelopers { // Kristian
 	Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -24,7 +24,7 @@ public class TestSeeAvailableDevelopers {
     Activity activity;
     
     @Before
-    public void setUp() throws Exception{
+    public void setUp() throws Exception { // Kristian
 		scheduler = new Scheduler();
 	    author = new Developer("Peter Bay Bastian", "12345");
 	    projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -47,7 +47,7 @@ public class TestSeeAvailableDevelopers {
 	    projectLeaderSession.assignActivityToDeveloper(activity, developer);
     }
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Kristian
     	List<Developer> availableDevelopers;
     	int maxPersonal = 0;
     	int maxProject = 1;

@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class AddDeveloperDialog implements Dialog {
+public class AddDeveloperDialog implements Dialog { // Kristian
     private Scheduler scheduler;
     private Session session;
     private Project project;
@@ -33,7 +33,7 @@ public class AddDeveloperDialog implements Dialog {
             Developer developer = null;
 
             for (Developer d : scheduler.getDevelopers()) {
-                if (developer.getName().equalsIgnoreCase(developerName)) {
+                if (d.getName().equalsIgnoreCase(developerName)) {
                     developer = d;
                     break;
                 }

@@ -12,7 +12,7 @@ import softwarehuset.scheduler.exceptions.NonRegisteredDeveloperException;
 
 import static junit.framework.Assert.*;
 
-public class TestRequestAssistance {
+public class TestRequestAssistance { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -26,7 +26,7 @@ public class TestRequestAssistance {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -50,14 +50,14 @@ public class TestRequestAssistance {
     }
 
     @Test
-    public void testAsDeveloperInProjectAssignedToActivity() throws Exception {
+    public void testAsDeveloperInProjectAssignedToActivity() throws Exception { // Peter
         developer1Session.requestAssistance(activity, developer2);
         assertTrue(developer2.getCurrentActivities().contains(activity));
         assertTrue(activity.getDevelopers().contains(developer2));
     }
 
     @Test
-    public void testAsDeveloperInProjectNotAssignedToActivity() throws Exception {
+    public void testAsDeveloperInProjectNotAssignedToActivity() throws Exception { // Peter
         try {
             projectLeaderSession.requestAssistance(activity, developer2);
             fail("Expected InsufficientRightsException");
@@ -67,7 +67,7 @@ public class TestRequestAssistance {
     }
 
     @Test
-    public void testWithUnregisteredDeveloper() throws Exception {
+    public void testWithUnregisteredDeveloper() throws Exception { // Peter
         Developer fakeDeveloper = new Developer("Fake Dev", "123");
         try {
             developer1Session.requestAssistance(activity, fakeDeveloper);

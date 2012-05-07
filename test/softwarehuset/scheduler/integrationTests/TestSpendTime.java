@@ -16,7 +16,7 @@ import java.util.GregorianCalendar;
 
 import static junit.framework.Assert.*;
 
-public class TestSpendTime {
+public class TestSpendTime { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -30,7 +30,7 @@ public class TestSpendTime {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -54,7 +54,7 @@ public class TestSpendTime {
     }
 
     @Test
-    public void testAsDeveloperAssignedToActivity() throws Exception {
+    public void testAsDeveloperAssignedToActivity() throws Exception { // Peter
         ActivityTimePeriod timePeriod = new ActivityTimePeriod(activity, 15, 16);
         developer1Session.spendTimeOnProjectActivity(timePeriod);
         assertTrue(developer1.getActivityTimePeriods().contains(timePeriod));
@@ -63,7 +63,7 @@ public class TestSpendTime {
     }
 
     @Test
-    public void testAsAssistingDeveloper() throws Exception {
+    public void testAsAssistingDeveloper() throws Exception { // Peter
         developer1Session.requestAssistance(activity, developer2);
         ActivityTimePeriod timePeriod = new ActivityTimePeriod(activity, 15, 16);
         developer2Session.spendTimeOnProjectActivity(timePeriod);
@@ -73,7 +73,7 @@ public class TestSpendTime {
     }
 
     @Test
-    public void testAsDeveloperNotAssignedToActivity() throws Exception {
+    public void testAsDeveloperNotAssignedToActivity() throws Exception { // Peter
         try {
             ActivityTimePeriod timePeriod = new ActivityTimePeriod(activity, 15, 16);
             developer2Session.spendTimeOnProjectActivity(timePeriod);
@@ -84,7 +84,7 @@ public class TestSpendTime {
     }
 
     @Test
-    public void testWithStartHourLessThan0() throws Exception {
+    public void testWithStartHourLessThan0() throws Exception { // Peter
         try {
             ActivityTimePeriod timePeriod = new ActivityTimePeriod(activity, -5, 16);
             developer1Session.spendTimeOnProjectActivity(timePeriod);
@@ -95,7 +95,7 @@ public class TestSpendTime {
     }
 
     @Test
-    public void testWithStartHourNotLessThanEndHour() throws Exception {
+    public void testWithStartHourNotLessThanEndHour() throws Exception { // Peter
         try {
             ActivityTimePeriod timePeriod = new ActivityTimePeriod(activity, 16, 16);
             developer1Session.spendTimeOnProjectActivity(timePeriod);
@@ -106,7 +106,7 @@ public class TestSpendTime {
     }
 
     @Test
-    public void testWithEndHourLargerThan23() throws Exception {
+    public void testWithEndHourLargerThan23() throws Exception { // Peter
         try {
             ActivityTimePeriod timePeriod = new ActivityTimePeriod(activity, 15, 24);
             developer1Session.spendTimeOnProjectActivity(timePeriod);

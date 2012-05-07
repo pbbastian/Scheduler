@@ -12,7 +12,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
 import static junit.framework.Assert.*;
 
-public class TestRemoveSpendTime {
+public class TestRemoveSpendTime { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -27,7 +27,7 @@ public class TestRemoveSpendTime {
     ActivityTimePeriod timePeriod;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -53,13 +53,13 @@ public class TestRemoveSpendTime {
     }
 
     @Test
-    public void testAsTimePeriodOwner() throws Exception {
+    public void testAsTimePeriodOwner() throws Exception { // Peter
         developer1Session.removeActivityTimePeriod(timePeriod);
         assertFalse(developer1.getActivityTimePeriods().contains(timePeriod));
     }
 
     @Test
-    public void testAsNonTimePeriodOwner() throws Exception {
+    public void testAsNonTimePeriodOwner() throws Exception { // Peter
         try {
             developer2Session.removeActivityTimePeriod(timePeriod);
             fail("Expected InsufficientRightsException");

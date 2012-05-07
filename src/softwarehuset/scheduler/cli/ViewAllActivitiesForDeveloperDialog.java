@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ViewAllActivitiesForDeveloperDialog implements Dialog {
+public class ViewAllActivitiesForDeveloperDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private Dialog previousDialog;

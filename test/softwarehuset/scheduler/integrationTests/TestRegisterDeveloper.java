@@ -8,16 +8,16 @@ import softwarehuset.scheduler.application.*;
 import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.ArgumentException;
 
-public class TestRegisterDeveloper {
+public class TestRegisterDeveloper { // Peter
 	Scheduler scheduler;
 	
 	@Before
-	public void setUp() {
+	public void setUp() throws Exception { // Peter
 		scheduler = new Scheduler();
 	}
 	
 	@Test
-	public void testWithValidDeveloper() throws ArgumentException {
+	public void testWithValidDeveloper() throws Exception { // Peter
 		Developer developer = new Developer("Peter Bay Bastian", "12345");
 		scheduler.register(developer);
 		assertNotNull(developer.getId());
@@ -25,7 +25,7 @@ public class TestRegisterDeveloper {
 	}
 	
 	@Test
-	public void testWhenNameIsNull() throws ArgumentException {
+	public void testWhenNameIsNull() throws Exception { // Peter
 		Developer developer = new Developer(null, "12345");
 		try {
 			scheduler.register(developer);
@@ -36,7 +36,7 @@ public class TestRegisterDeveloper {
 	}
 	
 	@Test
-	public void testWhenNameIsTooShort() {
+	public void testWhenNameIsTooShort() throws Exception { // Peter
 		Developer developer = new Developer("", "12345");
 		try {
 			scheduler.register(developer);
@@ -48,7 +48,7 @@ public class TestRegisterDeveloper {
 	}
 	
 	@Test
-	public void testWhenPinIsNull() throws ArgumentException {
+	public void testWhenPinIsNull() throws Exception { // Peter
 		Developer developer = new Developer("Peter Bay Bastian", null);
 		try {
 			scheduler.register(developer);
@@ -59,7 +59,7 @@ public class TestRegisterDeveloper {
 	}
 	
 	@Test
-	public void testWhenPinIsTooShort() {
+	public void testWhenPinIsTooShort() throws Exception { // Peter
 		Developer developer = new Developer("Peter Bay Bastian", "123");
 		try {
 			scheduler.register(developer);

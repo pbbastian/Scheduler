@@ -28,7 +28,7 @@ public class Scheduler {
         return calendar;
     }
 
-    public void register(Developer developer) throws ArgumentException {
+    public void register(Developer developer) throws ArgumentException { // Peter
 		if (developer.getName() == null) {
 			throw new NullPointerException("Developer name cannot be null");
 		} else if (developer.getName().length() < 1) {
@@ -44,7 +44,7 @@ public class Scheduler {
 		developers.add(developer);
 	}
 	
-	public Session logIn(String name, String pin) throws IncorrectCredentialsException {
+	public Session logIn(String name, String pin) throws IncorrectCredentialsException { // Peter
 		for (Developer developer : developers) {
 			if (developer.getName().equals(name) && developer.getPin().equals(pin)) {
 				return new Session(this, developer);
@@ -70,7 +70,7 @@ public class Scheduler {
 		return projects;
 	}
 
-    public List<Activity> getRemainingActivities(Project project) {
+    public List<Activity> getRemainingActivities(Project project) { // Peter
         List<Activity> remainingActivities = new ArrayList<Activity>();
         for (Activity activity : project.getActivities()) {
             if (!activity.getStatus().equals(Status.COMPLETED) && !activity.getStatus().equals(Status.CANCELED)) {

@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ActivitiesAssignedToMeInProjectDialog implements Dialog {
+public class ActivitiesAssignedToMeInProjectDialog implements Dialog { // Kristian
     private Session session;
     private Project project;
     private Dialog previousDialog;

@@ -13,7 +13,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.fail;
 
-public class TestRemoveProject {
+public class TestRemoveProject { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -25,7 +25,7 @@ public class TestRemoveProject {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -46,7 +46,7 @@ public class TestRemoveProject {
     }
     
     @Test
-    public void testAsAuthor() throws Exception {
+    public void testAsAuthor() throws Exception { // Peter
         authorSession.removeProject(project);
         assertFalse(scheduler.getProjects().contains(project));
         assertFalse(developer.getProjects().contains(project));
@@ -54,7 +54,7 @@ public class TestRemoveProject {
     }
     
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Peter
         projectLeaderSession.removeProject(project);
         assertFalse(scheduler.getProjects().contains(project));
         assertFalse(developer.getProjects().contains(project));
@@ -62,7 +62,7 @@ public class TestRemoveProject {
     }
     
     @Test
-    public void testAsNonAuthorOrProjectLeader() throws Exception {
+    public void testAsNonAuthorOrProjectLeader() throws Exception { // Peter
         try {
             developerSession.removeProject(project);
             fail("Expected InsufficientRightsException");
@@ -72,7 +72,7 @@ public class TestRemoveProject {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullProject() throws Exception {
+    public void testWithNullProject() throws Exception { // Peter
         projectLeaderSession.removeProject(null);
     }
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class ProjectDeveloperDialog implements Dialog {
+public class ProjectDeveloperDialog implements Dialog { // Peter
     private Session session;
     private Project project;
     private Developer developer;

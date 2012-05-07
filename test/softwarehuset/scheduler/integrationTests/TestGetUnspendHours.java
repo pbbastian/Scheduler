@@ -11,7 +11,7 @@ import softwarehuset.scheduler.domain.Project;
 
 import static junit.framework.Assert.*;
 
-public class TestGetUnspendHours {
+public class TestGetUnspendHours { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -26,7 +26,7 @@ public class TestGetUnspendHours {
     ActivityTimePeriod timePeriod;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -52,7 +52,7 @@ public class TestGetUnspendHours {
     }
 
     @Test
-    public void test() {
+    public void test() throws Exception { // Kristian
         boolean[] unregisteredHours = developer1Session.getUnregisteredHours();
         assertEquals(24, unregisteredHours.length);
         assertFalse(unregisteredHours[0] && unregisteredHours[1] && unregisteredHours[2]);

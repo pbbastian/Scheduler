@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
 
-public class ProjectActivitiesDialog implements Dialog {
+public class ProjectActivitiesDialog implements Dialog { // Peter
     private Session session;
     private Project project;
     private Dialog previousDialog;
@@ -21,6 +21,7 @@ public class ProjectActivitiesDialog implements Dialog {
     
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         int size = project.getActivities().size();
         Choice[] choices = new Choice[size+1];
         for (int i = 0; i < size; i++) {

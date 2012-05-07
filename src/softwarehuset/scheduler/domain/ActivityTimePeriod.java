@@ -4,7 +4,7 @@ import softwarehuset.scheduler.domain.Activity;
 
 import java.util.Calendar;
 
-public class ActivityTimePeriod {
+public class ActivityTimePeriod { // Peter
     private Activity activity;
     private int fromHour;
     private int toHour;

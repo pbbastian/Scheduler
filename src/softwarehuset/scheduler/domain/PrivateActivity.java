@@ -2,7 +2,7 @@ package softwarehuset.scheduler.domain;
 
 import java.util.GregorianCalendar;
 
-public class PrivateActivity {
+public class PrivateActivity { // Peter
     private String description;
     private GregorianCalendar start;
     private GregorianCalendar end;

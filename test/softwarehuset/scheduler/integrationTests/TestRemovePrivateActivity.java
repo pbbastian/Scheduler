@@ -10,7 +10,7 @@ import softwarehuset.scheduler.domain.Project;
 
 import static junit.framework.Assert.*;
 
-public class TestRemovePrivateActivity {
+public class TestRemovePrivateActivity { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -21,7 +21,7 @@ public class TestRemovePrivateActivity {
     Project project;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -38,7 +38,7 @@ public class TestRemovePrivateActivity {
     }
     
     @Test
-    public void test() throws Exception {
+    public void test() throws Exception { // Kristian
         PrivateActivity activity = new PrivateActivity("Vacation", Scheduler.getWeek(26, 2012), Scheduler.getWeek(36, 2012));
         developerSession.addPrivateActivity(activity);
         developerSession.removePrivateActivity(activity);

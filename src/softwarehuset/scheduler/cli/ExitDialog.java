@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class ExitDialog implements Dialog {
+public class ExitDialog implements Dialog { // Peter
     private Dialog cancelDialog;
 
     public ExitDialog(Dialog cancelDialog) {

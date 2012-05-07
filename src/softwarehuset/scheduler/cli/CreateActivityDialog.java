@@ -13,7 +13,7 @@ import java.io.PrintStream;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-public class CreateActivityDialog implements Dialog {
+public class CreateActivityDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private Project project;

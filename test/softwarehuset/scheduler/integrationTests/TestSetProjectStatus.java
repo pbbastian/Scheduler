@@ -2,7 +2,7 @@ package softwarehuset.scheduler.integrationTests;
 
 import org.junit.Before;
 import org.junit.Test;
-import softwarehuset.scheduler.application.OngoingOrPausedActivitiesException;
+import softwarehuset.scheduler.exceptions.OngoingOrPausedActivitiesException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
@@ -13,7 +13,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
 import static junit.framework.Assert.*;
 
-public class TestSetProjectStatus {
+public class TestSetProjectStatus { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -24,7 +24,7 @@ public class TestSetProjectStatus {
     Project project;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -41,13 +41,13 @@ public class TestSetProjectStatus {
     }
 
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Kristian
         projectLeaderSession.setProjectStatus(project, Status.COMPLETED);
         assertEquals(Status.COMPLETED, project.getStatus());
     }
 
     @Test
-    public void testAsNonProjectLeader() throws Exception {
+    public void testAsNonProjectLeader() throws Exception { // Kristian
         try {
             authorSession.setProjectStatus(project, Status.COMPLETED);
             fail("Expected InsufficientRightsException");
@@ -57,7 +57,7 @@ public class TestSetProjectStatus {
     }
 
     @Test
-    public void testWithNullStatus() throws Exception {
+    public void testWithNullStatus() throws Exception { // Kristian
         try {
             projectLeaderSession.setProjectStatus(project, null);
             fail("Expected NullPointerException");
@@ -67,7 +67,7 @@ public class TestSetProjectStatus {
     }
 
     @Test
-    public void testWithOngoingActivity() throws Exception {
+    public void testWithOngoingActivity() throws Exception { // Kristian
         Activity activity1 = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity1, project);
         projectLeaderSession.addDeveloperToProject(developer, project);

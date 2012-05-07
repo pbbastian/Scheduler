@@ -22,7 +22,7 @@ public class Session {
         this.developer = developer;
     }
 
-    public void registerProject(Project project) throws ArgumentException, NullPointerException, AlreadyRegisteredProjectException {
+    public void registerProject(Project project) throws ArgumentException, NullPointerException, AlreadyRegisteredProjectException { // Peter
         if (scheduler.getProjects().contains(project)) {
             throw new AlreadyRegisteredProjectException(project, "Project is already registered");
         } else if (project.getName() == null) {
@@ -35,7 +35,7 @@ public class Session {
         this.scheduler.getProjects().add(project);
     }
 
-    public void chooseProjectLeader(Project project, Developer projectLeader) throws InsufficientRightsException, NonRegisteredDeveloperException, NonProjectLeaderException {
+    public void chooseProjectLeader(Project project, Developer projectLeader) throws InsufficientRightsException, NonRegisteredDeveloperException, NonProjectLeaderException { // Peter
         if (!scheduler.isRegistered(projectLeader)) {
             throw new NonRegisteredDeveloperException(projectLeader, "Project leader must be a registered developer");
         }
@@ -50,7 +50,7 @@ public class Session {
         return developer;
     }
 
-    public void addDeveloperToProject(Developer developer, Project project) throws NonProjectLeaderException, NonRegisteredDeveloperException {
+    public void addDeveloperToProject(Developer developer, Project project) throws NonProjectLeaderException, NonRegisteredDeveloperException { // Kristian
         if (!scheduler.isRegistered(developer)) {
             throw new NonRegisteredDeveloperException(developer, "Developer must be a registered developer");
         }
@@ -60,7 +60,7 @@ public class Session {
         project.addDeveloper(developer);
     }
 
-    public void addActivityToProject(Activity activity, Project project) throws ArgumentException, NonProjectLeaderException, NonRegisteredProjectException {
+    public void addActivityToProject(Activity activity, Project project) throws ArgumentException, NonProjectLeaderException, NonRegisteredProjectException { // Peter
         if (activity.getDescription() == null) {
             throw new NullPointerException("Activity description cannot be null");
         }
@@ -84,7 +84,7 @@ public class Session {
         project.addActivity(activity);
     }
 
-    public void assignActivityToDeveloper(Activity activity, Developer developer) throws InsufficientRightsException, DeveloperNotInProjectException {
+    public void assignActivityToDeveloper(Activity activity, Developer developer) throws InsufficientRightsException, DeveloperNotInProjectException { // Kristian
         if (!activity.getProject().getProjectLeader().equals(this.developer)) {
             throw new InsufficientRightsException("Only the project leader can assign activities to developers");
         }
@@ -94,7 +94,7 @@ public class Session {
         developer.addActivity(activity);
     }
 
-    public void setActivityStatus(Activity activity, Status status) throws InsufficientRightsException {
+    public void setActivityStatus(Activity activity, Status status) throws InsufficientRightsException { // Peter
         if (status == null) {
             throw new NullPointerException("Activity status cannot be null");
         }
@@ -104,7 +104,7 @@ public class Session {
         activity.setStatus(status);
     }
 
-    public void setProjectStatus(Project project, Status status) throws InsufficientRightsException, OngoingOrPausedActivitiesException {
+    public void setProjectStatus(Project project, Status status) throws InsufficientRightsException, OngoingOrPausedActivitiesException { // Kristian
         if (!project.getProjectLeader().equals(developer)) {
             throw new InsufficientRightsException("Only the project leader can set its status");
         }
@@ -113,7 +113,7 @@ public class Session {
         }
         List<Activity> ongoingOrPausedActivities = new ArrayList<Activity>();
         for (Activity activity : project.getActivities()) {
-            if (activity.getStatus() == Status.ONGOING || activity.getStatus() == Status.PAUSED) {
+            if (activity.getStatus().equals(Status.ONGOING) || activity.getStatus().equals(Status.PAUSED)) {
                 ongoingOrPausedActivities.add(activity);
             }
         }
@@ -124,14 +124,14 @@ public class Session {
         project.setStatus(status);
     }
 
-    public void removeActivity(Activity activity) throws InsufficientRightsException {
+    public void removeActivity(Activity activity) throws InsufficientRightsException { // Kristian
         if (!activity.getProject().getProjectLeader().equals(developer)) {
             throw new InsufficientRightsException("Only the project leader can remove activities");
         }
         activity.getProject().removeActivity(activity);
     }
 
-    public void removeProject(Project project) throws InsufficientRightsException {
+    public void removeProject(Project project) throws InsufficientRightsException { // Peter
         if (!project.getAuthor().equals(developer) && !project.getProjectLeader().equals(developer)) {
             throw new InsufficientRightsException("Only the project author or leader can remove it");
         }
@@ -144,21 +144,21 @@ public class Session {
         }
     }
 
-    public void removeDeveloperFromProject(Developer developer, Project project) throws InsufficientRightsException {
+    public void removeDeveloperFromProject(Developer developer, Project project) throws InsufficientRightsException { // Kristian
         if (!project.getProjectLeader().equals(this.developer)) {
             throw new InsufficientRightsException("Only the project leader can remove developers from the project");
         }
         project.removeDeveloper(developer);
     }
 
-    public void unassignActivityFromDeveloper(Activity activity, Developer developer) throws ActivityNotAssignedToDeveloperException {
+    public void unassignActivityFromDeveloper(Activity activity, Developer developer) throws ActivityNotAssignedToDeveloperException { // Kristian
         if (!activity.getDevelopers().contains(developer)) {
             throw new ActivityNotAssignedToDeveloperException("Can't unassign an activity from a developer that it's not assigned to");
         }
         developer.removeActivity(activity);
     }
 
-    public void addPrivateActivity(PrivateActivity privateActivity) throws ArgumentException {
+    public void addPrivateActivity(PrivateActivity privateActivity) throws ArgumentException { // Peter
         if (privateActivity.getDescription() == null || privateActivity.getStart() == null || privateActivity.getEnd() == null) {
             throw new NullPointerException();
         }
@@ -168,11 +168,11 @@ public class Session {
         developer.addPrivateActivity(privateActivity);
     }
 
-    public void removePrivateActivity(PrivateActivity activity) {
+    public void removePrivateActivity(PrivateActivity activity) { // Kristian
         developer.getPrivateActivities().remove(activity);
     }
 
-	public List<Developer> getAvailableDevelopers(int maxPrivate, int maxProject) {
+	public List<Developer> getAvailableDevelopers(int maxPrivate, int maxProject) { // Kristian
 		List<Developer> availableDevelopers = new ArrayList<Developer>();
 		for (Developer developer : scheduler.getDevelopers()) {
 			if (developer != this.developer) {
@@ -185,7 +185,7 @@ public class Session {
 		return availableDevelopers;
 	}
 
-	public int getTimeSpentOnActivities(Project project) throws InsufficientRightsException {
+	public int getTimeSpentOnActivities(Project project) throws InsufficientRightsException { // Kristian
 		if (!this.developer.equals(project.getProjectLeader())) {
 			throw new InsufficientRightsException("Only a project leader is allowed to do this.");
 		}
@@ -200,7 +200,7 @@ public class Session {
 		return timeSpent;
 	}
 	
-	public void generateProjectReport(Project project) throws IOException, InsufficientRightsException {
+	public void generateProjectReport(Project project) throws IOException, InsufficientRightsException { // Kristian
 		String projectName = project.getName();
 		int nrOfDevs = project.getDevelopers().size();
 		int nrOfActivities = project.getActivities().size();
@@ -215,7 +215,7 @@ public class Session {
     	out.close();
 	}
 
-    public void requestAssistance(Activity activity, Developer assistingDeveloper) throws InsufficientRightsException, NonRegisteredDeveloperException {
+    public void requestAssistance(Activity activity, Developer assistingDeveloper) throws InsufficientRightsException, NonRegisteredDeveloperException { // Peter
         if (!this.developer.getCurrentActivities().contains(activity)) {
             throw new InsufficientRightsException("Only developers assigned to the activity can request assistance with it");
         }
@@ -225,7 +225,7 @@ public class Session {
         assistingDeveloper.addActivity(activity);
     }
 
-    public void spendTimeOnProjectActivity(ActivityTimePeriod timePeriod) throws InsufficientRightsException, ArgumentException {
+    public void spendTimeOnProjectActivity(ActivityTimePeriod timePeriod) throws InsufficientRightsException, ArgumentException { // Peter
         if (!developer.getCurrentActivities().contains(timePeriod.getActivity())) {
             throw new InsufficientRightsException("Only a developer assigned to the activity (or one assisting) can spend time on it.");
         }
@@ -239,14 +239,14 @@ public class Session {
         developer.getActivityTimePeriods().add(timePeriod);
     }
 
-    public void removeActivityTimePeriod(ActivityTimePeriod timePeriod) throws InsufficientRightsException {
+    public void removeActivityTimePeriod(ActivityTimePeriod timePeriod) throws InsufficientRightsException { // Peter
         if (!developer.getActivityTimePeriods().contains(timePeriod)) {
             throw new InsufficientRightsException("Only the developer that spend the time can remove it");
         }
         developer.getActivityTimePeriods().remove(timePeriod);
     }
 
-    public boolean[] getUnregisteredHours() {
+    public boolean[] getUnregisteredHours() { // Kristian
         boolean[] unregisteredHours = new boolean[24];
         for (ActivityTimePeriod timePeriod : developer.getActivityTimePeriods()) {
             for (int i = timePeriod.getFromHour(); i <= timePeriod.getToHour(); i++) {

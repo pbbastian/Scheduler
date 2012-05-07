@@ -2,7 +2,7 @@ package softwarehuset.scheduler.integrationTests;
 
 import org.junit.Before;
 import org.junit.Test;
-import softwarehuset.scheduler.application.ActivityNotAssignedToDeveloperException;
+import softwarehuset.scheduler.exceptions.ActivityNotAssignedToDeveloperException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
@@ -11,7 +11,7 @@ import softwarehuset.scheduler.domain.Project;
 
 import static junit.framework.Assert.*;
 
-public class TestUnassignActivityFromDeveloper {
+public class TestUnassignActivityFromDeveloper { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -23,7 +23,7 @@ public class TestUnassignActivityFromDeveloper {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -44,14 +44,14 @@ public class TestUnassignActivityFromDeveloper {
     }
 
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Kristian
         projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
         assertFalse(developer.getCurrentActivities().contains(activity));
         assertFalse(activity.getDevelopers().contains(developer));
     }
 
     @Test
-    public void testWithActivityNotAssignedToDeveloper() throws Exception {
+    public void testWithActivityNotAssignedToDeveloper() throws Exception { // Kristian
         projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
         try {
             projectLeaderSession.unassignActivityFromDeveloper(activity, developer);

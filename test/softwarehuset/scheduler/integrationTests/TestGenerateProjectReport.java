@@ -2,27 +2,22 @@ package softwarehuset.scheduler.integrationTests;
 
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import org.junit.Before;
 import org.junit.Test;
-import softwarehuset.scheduler.application.DeveloperNotInProjectException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class TestGenerateProjectReport {
+public class TestGenerateProjectReport { // Kristian
 	Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -34,7 +29,7 @@ public class TestGenerateProjectReport {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -56,7 +51,7 @@ public class TestGenerateProjectReport {
     }
     
     @Test
-    public void testgenerateReport() throws Exception {
+    public void testgenerateReport() throws Exception { // Kristian
     	//for (Developer dev : project.getDevelopers()) {
 		//	System.out.println(dev.getName());
 		//}

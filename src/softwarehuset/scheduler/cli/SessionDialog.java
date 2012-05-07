@@ -6,7 +6,7 @@ import softwarehuset.scheduler.application.Session;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class SessionDialog implements Dialog {
+public class SessionDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private Dialog previousDialog;

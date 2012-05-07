@@ -1,6 +1,6 @@
 package softwarehuset.scheduler.cli;
 
-public class Choice {
+public class Choice { // Peter
     private String description;
     private Dialog dialog;
 

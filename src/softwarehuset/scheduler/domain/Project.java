@@ -3,7 +3,7 @@ package softwarehuset.scheduler.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Project {
+public class Project { // Kristian
 	private String id;
 	private String name;
 	private Developer author;
@@ -19,12 +19,12 @@ public class Project {
 		this.status = Status.ONGOING;
 	}
 	
-	public void addActivity(Activity activity) {
+	public void addActivity(Activity activity) { // Peter
 		activity.setProject(this);
 		activities.add(activity);
 	}
 	
-	public void addDeveloper(Developer developer) {
+	public void addDeveloper(Developer developer) { // Kristian
 		developers.add(developer);
 		developer.getProjects().add(this);
 	}
@@ -57,7 +57,7 @@ public class Project {
 		return projectLeader;
 	}
 
-	public void setProjectLeader(Developer projectLeader) {
+	public void setProjectLeader(Developer projectLeader) { // Peter
 		this.projectLeader = projectLeader;
 		if (!developers.contains(projectLeader)) {
 			developers.add(projectLeader);
@@ -80,7 +80,7 @@ public class Project {
 		return activities;
 	}
 
-    public List<Activity> getActivities(Status status) {
+    public List<Activity> getActivities(Status status) { // Peter
         List<Activity> activitiesWithStatus = new ArrayList<Activity>();
         for (Activity activity : activities) {
             if (activity.getStatus().equals(status)) {
@@ -90,14 +90,14 @@ public class Project {
         return activitiesWithStatus;
     }
 
-    public void removeActivity(Activity activity) {
+    public void removeActivity(Activity activity) { // Kristian
         activities.remove(activity);
         for (Developer developer : activity.getDevelopers()) {
             developer.getCurrentActivities().remove(activity);
         }
     }
 
-    public void removeDeveloper(Developer developer) {
+    public void removeDeveloper(Developer developer) { // Kristian
         for (Activity activity : activities) {
             developer.getCurrentActivities().remove(activity);
         }

@@ -11,7 +11,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
 import static junit.framework.Assert.*;
 
-public class TestRemoveActivity {
+public class TestRemoveActivity { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -23,7 +23,7 @@ public class TestRemoveActivity {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -44,14 +44,14 @@ public class TestRemoveActivity {
     }
     
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Kristian
         projectLeaderSession.removeActivity(activity);
         assertFalse(project.getActivities().contains(activity));
         assertFalse(developer.getCurrentActivities().contains(activity));
     }
     
     @Test
-    public void testAsNonProjectLeader() {
+    public void testAsNonProjectLeader() throws Exception { // Kristian
         try {
             developerSession.removeActivity(activity);
             fail("Expected InsufficientRightsException");
@@ -61,7 +61,7 @@ public class TestRemoveActivity {
     }
     
     @Test(expected = NullPointerException.class)
-    public void testWithNullActivity() throws Exception {
+    public void testWithNullActivity() throws Exception { // Kristian
         projectLeaderSession.removeActivity(null);
     }
 }

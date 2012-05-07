@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class ChoiceDialog implements Dialog {
+public class ChoiceDialog implements Dialog { // Peter
     private Choice[] choices;
     private String titleText;
     private String selectText;

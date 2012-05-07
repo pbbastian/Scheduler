@@ -1,6 +1,6 @@
 package softwarehuset.scheduler.cli;
 
-import softwarehuset.scheduler.application.DeveloperNotInProjectException;
+import softwarehuset.scheduler.exceptions.DeveloperNotInProjectException;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.Developer;
@@ -11,7 +11,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
 
-public class AssignActivityToDeveloperDialog implements Dialog {
+public class AssignActivityToDeveloperDialog implements Dialog { // Kristian
     private Session session;
     private Developer developer;
     private Activity activity;

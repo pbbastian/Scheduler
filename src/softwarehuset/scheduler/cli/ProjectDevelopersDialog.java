@@ -20,6 +20,7 @@ public class ProjectDevelopersDialog implements Dialog {
     
     @Override
     public void display(InputStream in, PrintStream out) {
+        out.println();
         int size = project.getDevelopers().size();
         Choice[] choices = new Choice[size+1];
         for (int i = 0; i < size; i++) {

@@ -13,7 +13,7 @@ import java.util.List;
 
 import static junit.framework.Assert.*;
 
-public class TestGetRemainingActivities {
+public class TestGetRemainingActivities { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -26,7 +26,7 @@ public class TestGetRemainingActivities {
     Project project;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -46,13 +46,13 @@ public class TestGetRemainingActivities {
     }
 
     @Test
-    public void testWithNoCompletedActivities() {
+    public void testWithNoCompletedActivities() throws Exception { // Peter
         List<Activity> remainingActivities = scheduler.getRemainingActivities(project);
         assertTrue(remainingActivities.isEmpty());
     }
 
     @Test
-    public void testWith2CompletedActivities() throws Exception {
+    public void testWith2CompletedActivities() throws Exception { // Peter
         Activity activity1 = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         projectLeaderSession.addActivityToProject(activity1, project);
         Activity activity2 = new Activity("Create even more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));

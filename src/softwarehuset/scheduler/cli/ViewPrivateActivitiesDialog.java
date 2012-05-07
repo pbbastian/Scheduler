@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Calendar;
 
-public class ViewPrivateActivitiesDialog implements Dialog {
+public class ViewPrivateActivitiesDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private Developer developer;

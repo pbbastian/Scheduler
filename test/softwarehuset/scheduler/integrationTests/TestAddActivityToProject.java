@@ -14,7 +14,7 @@ import softwarehuset.scheduler.exceptions.NonRegisteredProjectException;
 
 import static org.junit.Assert.*;
 
-public class TestAddActivityToProject {
+public class TestAddActivityToProject { // Peter
 	Scheduler scheduler;
 	Developer author;
 	Developer projectLeader;
@@ -25,7 +25,7 @@ public class TestAddActivityToProject {
 	Project project;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception { // Peter
 		scheduler = new Scheduler();
 		author = new Developer("Peter Bay Bastian", "12345");
 		projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -42,7 +42,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testAsProjectLeader() throws Exception {
+	public void testAsProjectLeader() throws Exception { // Peter
 		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		projectLeaderSession.addActivityToProject(activity, project);
 		assertTrue(project.getActivities().contains(activity));
@@ -53,7 +53,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testAsProjectLeaderWithNullActivityName() throws Exception {
+	public void testAsProjectLeaderWithNullActivityName() throws Exception { // Peter
 		Activity activity = new Activity(null, Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
@@ -64,7 +64,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testAsProjectLeaderWithNullCreationDate() throws Exception {
+	public void testAsProjectLeaderWithNullCreationDate() throws Exception { // Peter
 		Activity activity = new Activity("Create more tests", null, Scheduler.getWeek(2, 2012));
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
@@ -75,7 +75,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testAsProjectLeaderWithNullDueDate() throws Exception {
+	public void testAsProjectLeaderWithNullDueDate() throws Exception { // Peter
 		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), null);
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
@@ -86,7 +86,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testAsProjectLeaderWithTooShortActivityName() throws Exception {
+	public void testAsProjectLeaderWithTooShortActivityName() throws Exception { // Peter
 		Activity activity = new Activity("", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		try {
 			projectLeaderSession.addActivityToProject(activity, project);
@@ -98,7 +98,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testAsNonProjectLeader() throws Exception {
+	public void testAsNonProjectLeader() throws Exception { // Peter
 		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		try {
 			developerSession.addActivityToProject(activity, project);
@@ -110,7 +110,7 @@ public class TestAddActivityToProject {
 	}
 	
 	@Test
-	public void testWithNonRegisteredProject() throws Exception {
+	public void testWithNonRegisteredProject() throws Exception { // Peter
 		Activity activity = new Activity("Create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
 		Project fakeProject = new Project("Fake project");
 		fakeProject.setProjectLeader(projectLeader);

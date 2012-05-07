@@ -13,7 +13,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.fail;
 
-public class TestSetActivityStatus {
+public class TestSetActivityStatus { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -25,7 +25,7 @@ public class TestSetActivityStatus {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -46,19 +46,19 @@ public class TestSetActivityStatus {
     }
     
     @Test
-    public void testAsAssignedDeveloper() throws Exception {
+    public void testAsAssignedDeveloper() throws Exception { // Peter
         developerSession.setActivityStatus(activity, Status.COMPLETED);
         assertEquals(Status.COMPLETED, activity.getStatus());
     }
     
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Peter
         projectLeaderSession.setActivityStatus(activity, Status.COMPLETED);
         assertEquals(Status.COMPLETED, activity.getStatus());
     }
     
     @Test
-    public void testAsNonAssignedDeveloperOrProjectLeader() throws Exception {
+    public void testAsNonAssignedDeveloperOrProjectLeader() throws Exception { // Peter
         try {
             authorSession.setActivityStatus(activity, Status.COMPLETED);
             fail("Expected InsufficientRightsException");
@@ -68,7 +68,7 @@ public class TestSetActivityStatus {
     }
 
     @Test
-    public void testWithNullStatus() throws Exception {
+    public void testWithNullStatus() throws Exception { // Peter
         try {
             authorSession.setActivityStatus(activity, null);
             fail("Expected NullPointerException");

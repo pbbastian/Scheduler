@@ -11,7 +11,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
 import static org.junit.Assert.*;
 
-public class TestRemoveDeveloperFromProject {
+public class TestRemoveDeveloperFromProject { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -23,7 +23,7 @@ public class TestRemoveDeveloperFromProject {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -43,7 +43,7 @@ public class TestRemoveDeveloperFromProject {
     }
 
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Kristian
         projectLeaderSession.removeDeveloperFromProject(developer, project);
         assertFalse(project.getDevelopers().contains(developer));
         assertFalse(developer.getProjects().contains(project));
@@ -52,17 +52,12 @@ public class TestRemoveDeveloperFromProject {
     }
     
     @Test
-    public void testAsNonProjectLeader() throws Exception {
+    public void testAsNonProjectLeader() throws Exception { // Kristian
         try {
             authorSession.removeDeveloperFromProject(developer, project);
             fail("Expected InsufficientRightsException");
         } catch (InsufficientRightsException e) {
             assertEquals("Only the project leader can remove developers from the project", e.getMessage());
         }
-    }
-    
-    @Test
-    public void testWithDeveloperNotInProject() throws Exception {
-
     }
 }

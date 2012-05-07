@@ -13,13 +13,13 @@ import softwarehuset.scheduler.exceptions.NonRegisteredDeveloperException;
 
 import static org.junit.Assert.*;
 
-public class TestChooseProjectLeader {
+public class TestChooseProjectLeader { // Peter
 	Scheduler scheduler;
 	Developer developer1;
 	Developer developer2;
 	
 	@Before
-	public void setUp() throws ArgumentException, IncorrectCredentialsException {
+	public void setUp() throws Exception { // Peter
 		scheduler = new Scheduler();
 		developer1 = new Developer("Peter Bay Bastian", "12345");
 		developer2 = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -28,7 +28,7 @@ public class TestChooseProjectLeader {
 	}
 	
 	@Test
-	public void testAsProjectAuthor() throws Exception {
+	public void testAsProjectAuthor() throws Exception { // Peter
 		Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
 		Project project = new Project("Peters Projekt");
 		session.registerProject(project);
@@ -39,7 +39,7 @@ public class TestChooseProjectLeader {
 	}
 	
 	@Test
-	public void testAsProjectDeveloper() throws Exception {
+	public void testAsProjectDeveloper() throws Exception { // Peter
         Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
         Project project = new Project("Peters Projekt");
         session.registerProject(project);
@@ -55,7 +55,7 @@ public class TestChooseProjectLeader {
 	}
 	
 	@Test
-	public void testAsNonProjectDeveloperOrAuthor() throws Exception {
+	public void testAsNonProjectDeveloperOrAuthor() throws Exception { // Peter
 		Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
 		Project project = new Project("Peters Projekt");
 		session.registerProject(project);
@@ -70,7 +70,7 @@ public class TestChooseProjectLeader {
 	}
 	
 	@Test
-	public void testAsNonRegisteredDeveloper() throws Exception {
+	public void testAsNonRegisteredDeveloper() throws Exception { // Peter
 		Session session = scheduler.logIn(developer1.getName(), developer1.getPin());
 		Project project = new Project("Peters Projekt");
 		session.registerProject(project);

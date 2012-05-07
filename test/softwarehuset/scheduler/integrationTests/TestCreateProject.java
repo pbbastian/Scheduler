@@ -8,13 +8,13 @@ import softwarehuset.scheduler.domain.*;
 import softwarehuset.scheduler.exceptions.AlreadyRegisteredProjectException;
 import softwarehuset.scheduler.exceptions.ArgumentException;
 
-public class TestCreateProject {
+public class TestCreateProject { // Peter
 	Scheduler scheduler;
 	Developer developer;
 	Session session;
 	
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() throws Exception { // Peter
 		scheduler = new Scheduler();
 		developer = new Developer("Peter Bay Bastian", "12345");
 		scheduler.register(developer);
@@ -22,7 +22,7 @@ public class TestCreateProject {
 	}
 	
 	@Test
-	public void testWhenProjectIsValid() throws Exception {
+	public void testWhenProjectIsValid() throws Exception { // Peter
 		Project project = new Project("Test project");
 		session.registerProject(project);
 		assertTrue(scheduler.getProjects().contains(project));
@@ -32,7 +32,7 @@ public class TestCreateProject {
 	}
 	
 	@Test
-	public void testWhenProjectNameIsNull() throws Exception {
+	public void testWhenProjectNameIsNull() throws Exception { // Peter
 		Project project = new Project(null);
 		try {
 			session.registerProject(project);
@@ -43,7 +43,7 @@ public class TestCreateProject {
 	}
 	
 	@Test
-	public void testWhenProjectNameIsTooShort() throws Exception {
+	public void testWhenProjectNameIsTooShort() throws Exception { // Peter
 		Project project = new Project("");
 		try {
 			session.registerProject(project);
@@ -55,7 +55,7 @@ public class TestCreateProject {
 	}
 	
 	@Test
-	public void testWhenProjectIsAlreadyRegistered() throws Exception {
+	public void testWhenProjectIsAlreadyRegistered() throws Exception { // Peter
 		Project project = new Project("Test project");
 		session.registerProject(project);
 		try {

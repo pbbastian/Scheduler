@@ -1,6 +1,6 @@
 package softwarehuset.scheduler.domain;
 
-public enum Status {
+public enum Status { // Kristian
     ONGOING,
     PAUSED,
     COMPLETED,

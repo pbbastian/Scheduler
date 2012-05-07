@@ -2,7 +2,7 @@ package softwarehuset.scheduler.integrationTests;
 
 import org.junit.Before;
 import org.junit.Test;
-import softwarehuset.scheduler.application.DeveloperNotInProjectException;
+import softwarehuset.scheduler.exceptions.DeveloperNotInProjectException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-public class TestAssignActivityToDeveloper {
+public class TestAssignActivityToDeveloper { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -26,7 +26,7 @@ public class TestAssignActivityToDeveloper {
     Activity activity;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -46,14 +46,14 @@ public class TestAssignActivityToDeveloper {
     }
     
     @Test
-    public void testAsProjectLeader() throws Exception {
+    public void testAsProjectLeader() throws Exception { // Kristian
         projectLeaderSession.assignActivityToDeveloper(activity, developer);
         assertTrue(developer.getCurrentActivities().contains(activity));
         assertTrue(activity.getDevelopers().contains(developer));
     }
     
     @Test
-    public void testAsNonProjectLeader() throws Exception {
+    public void testAsNonProjectLeader() throws Exception { // Kristian
         try {
             developerSession.assignActivityToDeveloper(activity, developer);
             fail("Expected InsufficientRightsException");
@@ -63,7 +63,7 @@ public class TestAssignActivityToDeveloper {
     }
     
     @Test
-    public void testWithDeveloperNotInProject() throws Exception {
+    public void testWithDeveloperNotInProject() throws Exception { // Kristian
         Activity anotherActivity = new Activity("Don't create more tests", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         Project anotherProject = new Project("Another project");
         authorSession.registerProject(anotherProject);

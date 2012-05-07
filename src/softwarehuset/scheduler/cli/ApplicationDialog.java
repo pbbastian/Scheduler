@@ -5,7 +5,7 @@ import softwarehuset.scheduler.application.Scheduler;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class ApplicationDialog implements Dialog {
+public class ApplicationDialog implements Dialog { // Peter
     private Scheduler scheduler;
 
     public ApplicationDialog(Scheduler scheduler) {

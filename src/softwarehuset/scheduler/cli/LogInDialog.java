@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class LogInDialog implements Dialog {
+public class LogInDialog implements Dialog { // Kristian
     private Scheduler scheduler;
     private Dialog previousDialog;
     private Session session;

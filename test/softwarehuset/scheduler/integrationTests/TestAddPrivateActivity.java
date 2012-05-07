@@ -11,7 +11,7 @@ import softwarehuset.scheduler.exceptions.ArgumentException;
 
 import static junit.framework.Assert.*;
 
-public class TestAddPrivateActivity {
+public class TestAddPrivateActivity { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -22,7 +22,7 @@ public class TestAddPrivateActivity {
     Project project;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -39,7 +39,7 @@ public class TestAddPrivateActivity {
     }
     
     @Test
-    public void testWithValidPrivateActivity() throws Exception {
+    public void testWithValidPrivateActivity() throws Exception { // Peter
         PrivateActivity privateActivity = new PrivateActivity("Ferie", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         developerSession.addPrivateActivity(privateActivity);
         assertTrue(developer.getPrivateActivities().contains(privateActivity));
@@ -47,27 +47,27 @@ public class TestAddPrivateActivity {
     }
     
     @Test(expected = NullPointerException.class)
-    public void testWithNullPrivateActivity() throws Exception {
+    public void testWithNullPrivateActivity() throws Exception { // Peter
         developerSession.addPrivateActivity(null);
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullPrivateActivityDescription() throws Exception {
+    public void testWithNullPrivateActivityDescription() throws Exception { // Peter
         developerSession.addPrivateActivity(new PrivateActivity(null, Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012)));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullPrivateActivityStart() throws Exception {
+    public void testWithNullPrivateActivityStart() throws Exception { // Peter
         developerSession.addPrivateActivity(new PrivateActivity("Ferie", null, Scheduler.getWeek(2, 2012)));
     }
 
     @Test(expected = NullPointerException.class)
-    public void testWithNullPrivateActivityEnd() throws Exception {
+    public void testWithNullPrivateActivityEnd() throws Exception { // Peter
         developerSession.addPrivateActivity(new PrivateActivity("Ferie", Scheduler.getWeek(1, 2012), null));
     }
     
     @Test
-    public void testWithTooShortPrivateActivityDescription() {
+    public void testWithTooShortPrivateActivityDescription() throws Exception { // Peter
         PrivateActivity privateActivity = new PrivateActivity("", Scheduler.getWeek(1, 2012), Scheduler.getWeek(2, 2012));
         try {
             developerSession.addPrivateActivity(privateActivity);

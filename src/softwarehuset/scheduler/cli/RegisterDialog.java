@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class RegisterDialog implements Dialog {
+public class RegisterDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Dialog returnDialog;
 

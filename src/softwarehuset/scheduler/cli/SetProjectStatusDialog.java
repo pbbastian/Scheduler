@@ -1,6 +1,6 @@
 package softwarehuset.scheduler.cli;
 
-import softwarehuset.scheduler.application.OngoingOrPausedActivitiesException;
+import softwarehuset.scheduler.exceptions.OngoingOrPausedActivitiesException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Project;
@@ -10,7 +10,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class SetProjectStatusDialog implements Dialog {
+public class SetProjectStatusDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private Project project;
@@ -32,7 +32,7 @@ public class SetProjectStatusDialog implements Dialog {
                 new Choice(Status.CANCELED.toString(), new InnerDialog(scheduler, session, project, Status.CANCELED, previousDialog)),
                 new Choice("Go back", previousDialog),
         };
-        new ChoiceDialog(choices, "Available statuses:", "Select a status: ");
+        new ChoiceDialog(choices, "Available statuses:", "Select a status: ").display(in, out);
     }
 
     public class InnerDialog implements Dialog {
@@ -60,6 +60,7 @@ public class SetProjectStatusDialog implements Dialog {
             } catch (OngoingOrPausedActivitiesException e) {
                 out.println("As the project still has ongoing or paused activities, you can't mark it as completed.");
             }
+            previousDialog.display(in, out);
         }
     }
 }

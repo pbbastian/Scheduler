@@ -7,7 +7,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class RemoveActivityDialog implements Dialog {
+public class RemoveActivityDialog implements Dialog { // Kristian
     private Session session;
     private Activity activity;
     private Dialog previousDialog;

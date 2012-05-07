@@ -9,7 +9,7 @@ import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 import java.io.InputStream;
 import java.io.PrintStream;
 
-public class RemoveDeveloperFromProjectDialog implements Dialog {
+public class RemoveDeveloperFromProjectDialog implements Dialog { // Peter
     private Scheduler scheduler;
     private Session session;
     private Project project;
@@ -29,6 +29,7 @@ public class RemoveDeveloperFromProjectDialog implements Dialog {
         try {
             session.removeDeveloperFromProject(developer, project);
             out.println("You have successfully removed '" + developer.getName() + "' from the project!");
+            previousDialog.display(in, out);
         } catch (InsufficientRightsException e) {
             e.printStackTrace();  // This shouldn't be possible
         }

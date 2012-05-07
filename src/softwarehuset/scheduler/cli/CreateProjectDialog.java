@@ -10,7 +10,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.util.Scanner;
 
-public class CreateProjectDialog implements Dialog {
+public class CreateProjectDialog implements Dialog { // Kristian
     private Scheduler scheduler;
     private Session session;
     private Dialog previousDialog;
