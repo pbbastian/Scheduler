@@ -1,18 +1,24 @@
-package softwarehuset.scheduler.integrationTests;
+package softwarehuset.scheduler.tests;
+
+
+import java.io.BufferedReader;
+import java.io.FileReader;
 
 import org.junit.Before;
 import org.junit.Test;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
+import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
-import static junit.framework.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class TestRemoveActivity { // Kristian
-    Scheduler scheduler;
+public class TestGenerateProjectReport { // Kristian
+	Scheduler scheduler;
     Developer author;
     Developer projectLeader;
     Developer developer;
@@ -41,27 +47,25 @@ public class TestRemoveActivity { // Kristian
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity, developer);
+        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 8, 17));
     }
     
     @Test
-    public void testAsProjectLeader() throws Exception { // Kristian
-        projectLeaderSession.removeActivity(activity);
-        assertFalse(project.getActivities().contains(activity));
-        assertFalse(developer.getCurrentActivities().contains(activity));
-    }
-    
-    @Test
-    public void testAsNonProjectLeader() throws Exception { // Kristian
-        try {
-            developerSession.removeActivity(activity);
-            fail("Expected InsufficientRightsException");
-        } catch (InsufficientRightsException e) {
-            assertEquals("Only the project leader can remove activities", e.getMessage());
+    public void testgenerateReport() throws Exception { // Kristian
+    	//for (Developer dev : project.getDevelopers()) {
+		//	System.out.println(dev.getName());
+		//}
+    	
+    	projectLeaderSession.generateProjectReport(project);
+    	
+    	String expectedReport = "<!DOCTYPE html PUBLIC >\n<head>\n<title>\nProject Report</title>\n</head>\n<body>\n<h1>Project Report : "+project.getName()+"</h1>\n<p>TOTAL TIME SPENT: 10<br>\nAvg. time spent by a Developer: 5.0<br>\nAvg. time spent on an Activity: 10.0</p>\n</html>\n";
+    	BufferedReader in = new BufferedReader(new FileReader(project.getName()+"_report.html"));
+    	String textIn = "";
+        String str;
+        while ((str = in.readLine()) != null) {
+            textIn = textIn+str+"\n";
         }
-    }
-    
-    @Test(expected = NullPointerException.class)
-    public void testWithNullActivity() throws Exception { // Kristian
-        projectLeaderSession.removeActivity(null);
+        in.close();
+        assertEquals(expectedReport, textIn);
     }
 }

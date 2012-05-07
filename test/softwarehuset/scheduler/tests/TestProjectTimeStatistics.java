@@ -1,19 +1,20 @@
-package softwarehuset.scheduler.integrationTests;
+package softwarehuset.scheduler.tests;
 
 import org.junit.Before;
 import org.junit.Test;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
+import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.domain.Status;
 import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.fail;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
-public class TestSetActivityStatus { // Peter
+public class TestProjectTimeStatistics { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -25,7 +26,7 @@ public class TestSetActivityStatus { // Peter
     Activity activity;
 
     @Before
-    public void setUp() throws Exception { // Peter
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -43,37 +44,32 @@ public class TestSetActivityStatus { // Peter
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity, developer);
+        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 7, 16));
+        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 14, 16));
+    }
+    @Test
+    public void timeSpentOnProject() throws Exception { // Kristian
+    	double time = projectLeaderSession.getTimeSpentOnActivities(project);
+    	assertTrue(time == 13);
     }
     
     @Test
-    public void testAsAssignedDeveloper() throws Exception { // Peter
-        developerSession.setActivityStatus(activity, Status.COMPLETED);
-        assertEquals(Status.COMPLETED, activity.getStatus());
-    }
-    
-    @Test
-    public void testAsProjectLeader() throws Exception { // Peter
-        projectLeaderSession.setActivityStatus(activity, Status.COMPLETED);
-        assertEquals(Status.COMPLETED, activity.getStatus());
-    }
-    
-    @Test
-    public void testAsNonAssignedDeveloperOrProjectLeader() throws Exception { // Peter
-        try {
-            authorSession.setActivityStatus(activity, Status.COMPLETED);
+    public void timeSpentOnProjectNotProjectLeader() throws Exception { // Kristian
+    	try {
+    		developerSession.getTimeSpentOnActivities(project);
             fail("Expected InsufficientRightsException");
-        } catch (InsufficientRightsException e) {
-            assertEquals("Only the project leader or a developer assigned to the activity can set its status", e.getMessage());
+    	} catch (InsufficientRightsException e) {
+            assertEquals("Only a project leader is allowed to do this.", e.getMessage());
         }
     }
-
+    
     @Test
-    public void testWithNullStatus() throws Exception { // Peter
-        try {
-            authorSession.setActivityStatus(activity, null);
-            fail("Expected NullPointerException");
-        } catch (NullPointerException e) {
-            assertEquals("Activity status cannot be null", e.getMessage());
+    public void timeSpentOnProjectNullProject() throws Exception { // Kristian
+    	try {
+    		projectLeaderSession.getTimeSpentOnActivities(null);
+            fail("NullPointerException was expected, never came");
+    	} catch (NullPointerException e) {
+            assertEquals(NullPointerException.class, e.getClass());
         }
     }
 }

@@ -1,20 +1,17 @@
-package softwarehuset.scheduler.integrationTests;
+package softwarehuset.scheduler.tests;
 
 import org.junit.Before;
 import org.junit.Test;
+import softwarehuset.scheduler.exceptions.ActivityNotAssignedToDeveloperException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
-import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+import static junit.framework.Assert.*;
 
-public class TestProjectTimeStatistics { // Kristian
+public class TestUnassignActivityFromDeveloper { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -44,32 +41,23 @@ public class TestProjectTimeStatistics { // Kristian
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity, developer);
-        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 7, 16));
-        developerSession.spendTimeOnProjectActivity(new ActivityTimePeriod(activity, 14, 16));
     }
+
     @Test
-    public void timeSpentOnProject() throws Exception { // Kristian
-    	double time = projectLeaderSession.getTimeSpentOnActivities(project);
-    	assertTrue(time == 13);
+    public void testAsProjectLeader() throws Exception { // Kristian
+        projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
+        assertFalse(developer.getCurrentActivities().contains(activity));
+        assertFalse(activity.getDevelopers().contains(developer));
     }
-    
+
     @Test
-    public void timeSpentOnProjectNotProjectLeader() throws Exception { // Kristian
-    	try {
-    		developerSession.getTimeSpentOnActivities(project);
-            fail("Expected InsufficientRightsException");
-    	} catch (InsufficientRightsException e) {
-            assertEquals("Only a project leader is allowed to do this.", e.getMessage());
-        }
-    }
-    
-    @Test
-    public void timeSpentOnProjectNullProject() throws Exception { // Kristian
-    	try {
-    		projectLeaderSession.getTimeSpentOnActivities(null);
-            fail("NullPointerException was expected, never came");
-    	} catch (NullPointerException e) {
-            assertEquals(NullPointerException.class, e.getClass());
+    public void testWithActivityNotAssignedToDeveloper() throws Exception { // Kristian
+        projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
+        try {
+            projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
+            fail("Expected ActivityNotAssignedToDeveloperException");
+        } catch (ActivityNotAssignedToDeveloperException e) {
+            assertEquals("Can't unassign an activity from a developer that it's not assigned to", e.getMessage());
         }
     }
 }

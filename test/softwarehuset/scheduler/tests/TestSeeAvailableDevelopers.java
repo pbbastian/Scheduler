@@ -1,4 +1,4 @@
-package softwarehuset.scheduler.integrationTests;
+package softwarehuset.scheduler.tests;
 
 import java.util.List;
 

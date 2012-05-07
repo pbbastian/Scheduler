@@ -1,17 +1,19 @@
-package softwarehuset.scheduler.integrationTests;
+package softwarehuset.scheduler.tests;
 
 import org.junit.Before;
 import org.junit.Test;
-import softwarehuset.scheduler.exceptions.ActivityNotAssignedToDeveloperException;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
+import softwarehuset.scheduler.domain.Status;
+import softwarehuset.scheduler.exceptions.InsufficientRightsException;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.fail;
 
-public class TestUnassignActivityFromDeveloper { // Kristian
+public class TestSetActivityStatus { // Peter
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -23,7 +25,7 @@ public class TestUnassignActivityFromDeveloper { // Kristian
     Activity activity;
 
     @Before
-    public void setUp() throws Exception { // Kristian
+    public void setUp() throws Exception { // Peter
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -42,22 +44,36 @@ public class TestUnassignActivityFromDeveloper { // Kristian
         projectLeaderSession.addDeveloperToProject(developer, project);
         projectLeaderSession.assignActivityToDeveloper(activity, developer);
     }
-
+    
     @Test
-    public void testAsProjectLeader() throws Exception { // Kristian
-        projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
-        assertFalse(developer.getCurrentActivities().contains(activity));
-        assertFalse(activity.getDevelopers().contains(developer));
+    public void testAsAssignedDeveloper() throws Exception { // Peter
+        developerSession.setActivityStatus(activity, Status.COMPLETED);
+        assertEquals(Status.COMPLETED, activity.getStatus());
+    }
+    
+    @Test
+    public void testAsProjectLeader() throws Exception { // Peter
+        projectLeaderSession.setActivityStatus(activity, Status.COMPLETED);
+        assertEquals(Status.COMPLETED, activity.getStatus());
+    }
+    
+    @Test
+    public void testAsNonAssignedDeveloperOrProjectLeader() throws Exception { // Peter
+        try {
+            authorSession.setActivityStatus(activity, Status.COMPLETED);
+            fail("Expected InsufficientRightsException");
+        } catch (InsufficientRightsException e) {
+            assertEquals("Only the project leader or a developer assigned to the activity can set its status", e.getMessage());
+        }
     }
 
     @Test
-    public void testWithActivityNotAssignedToDeveloper() throws Exception { // Kristian
-        projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
+    public void testWithNullStatus() throws Exception { // Peter
         try {
-            projectLeaderSession.unassignActivityFromDeveloper(activity, developer);
-            fail("Expected ActivityNotAssignedToDeveloperException");
-        } catch (ActivityNotAssignedToDeveloperException e) {
-            assertEquals("Can't unassign an activity from a developer that it's not assigned to", e.getMessage());
+            authorSession.setActivityStatus(activity, null);
+            fail("Expected NullPointerException");
+        } catch (NullPointerException e) {
+            assertEquals("Activity status cannot be null", e.getMessage());
         }
     }
 }

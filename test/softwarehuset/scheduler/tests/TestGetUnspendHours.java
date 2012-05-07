@@ -1,18 +1,17 @@
-package softwarehuset.scheduler.integrationTests;
+package softwarehuset.scheduler.tests;
 
 import org.junit.Before;
 import org.junit.Test;
 import softwarehuset.scheduler.application.Scheduler;
 import softwarehuset.scheduler.application.Session;
 import softwarehuset.scheduler.domain.Activity;
+import softwarehuset.scheduler.domain.ActivityTimePeriod;
 import softwarehuset.scheduler.domain.Developer;
 import softwarehuset.scheduler.domain.Project;
-import softwarehuset.scheduler.exceptions.InsufficientRightsException;
-import softwarehuset.scheduler.exceptions.NonRegisteredDeveloperException;
 
 import static junit.framework.Assert.*;
 
-public class TestRequestAssistance { // Peter
+public class TestGetUnspendHours { // Kristian
     Scheduler scheduler;
     Developer author;
     Developer projectLeader;
@@ -24,9 +23,10 @@ public class TestRequestAssistance { // Peter
     Session developer2Session;
     Project project;
     Activity activity;
+    ActivityTimePeriod timePeriod;
 
     @Before
-    public void setUp() throws Exception { // Peter
+    public void setUp() throws Exception { // Kristian
         scheduler = new Scheduler();
         author = new Developer("Peter Bay Bastian", "12345");
         projectLeader = new Developer("Kristian Dam-Jensen", "qwerty");
@@ -47,34 +47,15 @@ public class TestRequestAssistance { // Peter
         projectLeaderSession.addActivityToProject(activity, project);
         projectLeaderSession.addDeveloperToProject(developer1, project);
         projectLeaderSession.assignActivityToDeveloper(activity, developer1);
+        timePeriod = new ActivityTimePeriod(activity, 2, 23);
+        developer1Session.spendTimeOnProjectActivity(timePeriod);
     }
 
     @Test
-    public void testAsDeveloperInProjectAssignedToActivity() throws Exception { // Peter
-        developer1Session.requestAssistance(activity, developer2);
-        assertTrue(developer2.getCurrentActivities().contains(activity));
-        assertTrue(activity.getDevelopers().contains(developer2));
-    }
-
-    @Test
-    public void testAsDeveloperInProjectNotAssignedToActivity() throws Exception { // Peter
-        try {
-            projectLeaderSession.requestAssistance(activity, developer2);
-            fail("Expected InsufficientRightsException");
-        } catch (InsufficientRightsException e) {
-            assertEquals("Only developers assigned to the activity can request assistance with it", e.getMessage());
-        }
-    }
-
-    @Test
-    public void testWithUnregisteredDeveloper() throws Exception { // Peter
-        Developer fakeDeveloper = new Developer("Fake Dev", "123");
-        try {
-            developer1Session.requestAssistance(activity, fakeDeveloper);
-            fail("Expected NonRegisteredDeveloperException");
-        } catch (NonRegisteredDeveloperException e) {
-            assertEquals("Assisting developer must be registered in the system", e.getMessage());
-            assertEquals(fakeDeveloper, e.getDeveloper());
-        }
+    public void test() throws Exception { // Kristian
+        boolean[] unregisteredHours = developer1Session.getUnregisteredHours();
+        assertEquals(24, unregisteredHours.length);
+        assertFalse(unregisteredHours[0] && unregisteredHours[1] && unregisteredHours[2]);
+        assertTrue(unregisteredHours[23] && unregisteredHours[16]);
     }
 }
